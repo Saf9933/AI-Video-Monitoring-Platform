@@ -1,0 +1,16 @@
+services:
+  mock-api:
+    build: ./services/mock-api
+    container_name: mock-api
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    environment:
+      - VITE_API_BASE=http://mock-api:8000/api
+    ports:
+      - "8080:80"
+    depends_on:
+      - mock-api

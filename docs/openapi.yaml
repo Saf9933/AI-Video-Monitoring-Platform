@@ -1,0 +1,61 @@
+openapi: 3.0.3
+info: { title: AI Video Platform API, version: 0.1.0 }
+servers: [ { url: http://localhost:8000/api/v1 } ]
+paths:
+  /devices:
+    get:
+      summary: List devices
+      responses:
+        '200':
+          description: OK
+          content: { application/json: { schema:
+            type: array
+            items: { $ref: '#/components/schemas/Device' } } }
+  /alerts:
+    get:
+      summary: List alerts
+      parameters:
+        - in: query; name: status; schema: { type: string, enum: [OPEN, ACK, RESOLVED] }
+      responses:
+        '200':
+          description: OK
+          content: { application/json: { schema:
+            type: array
+            items: { $ref: '#/components/schemas/Alert' } } }
+  /dashboard/summary:
+    get:
+      summary: Dashboard counters
+      responses:
+        '200':
+          description: OK
+          content: { application/json: { schema: { $ref: '#/components/schemas/DashboardSummary' } } }
+components:
+  schemas:
+    Device:
+      type: object
+      required: [deviceId, deviceName, status, protocol, location]
+      properties:
+        deviceId: { type: string }
+        deviceName: { type: string }
+        status: { type: string, enum: [ONLINE, OFFLINE, ERROR] }
+        protocol: { type: string, enum: [RTSP, ONVIF, GB28181, RTMP] }
+        location: { type: string }
+    Alert:
+      type: object
+      required: [alertId, type, severity, status, createdAt, deviceId, snapshotUrl]
+      properties:
+        alertId: { type: string }
+        type: { type: string }            # e.g. INTRUSION, FIRE, CROWD
+        severity: { type: string, enum: [CRITICAL, HIGH, MEDIUM, LOW] }
+        status: { type: string, enum: [OPEN, ACK, RESOLVED] }
+        createdAt: { type: string, format: date-time }
+        deviceId: { type: string }
+        snapshotUrl: { type: string }
+    DashboardSummary:
+      type: object
+      properties:
+        totalDevices: { type: integer }
+        onlineDevices: { type: integer }
+        offlineDevices: { type: integer }
+        alertsToday: { type: integer }
+        criticalAlerts: { type: integer }

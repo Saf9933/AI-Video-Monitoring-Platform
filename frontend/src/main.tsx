@@ -1,10 +1,20 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+// src/main.tsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './app/App';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+// Mock Service Worker setup removed for now
+// Uncomment when ready to use MSW
+// async function enableMocks() {
+//   if (import.meta.env.DEV) {
+//     const { worker } = await import('./mocks/browser');
+//     await worker.start();
+//   }
+// }
+// enableMocks();
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
     <App />
-  </StrictMode>,
-)
+  </React.StrictMode>
+);
