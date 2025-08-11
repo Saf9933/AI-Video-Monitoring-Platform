@@ -1,28 +1,27 @@
 import { Server } from 'socket.io';
-import { Alert, AlertType, AlertSeverity } from './types';
+import { Alert, AlertType, AlertPriority } from './types';
 
 export class AlertGenerator {
   private interval: NodeJS.Timeout | null = null;
-  private readonly alertTypes: AlertType[] = ['emotional_distress', 'bullying_incident', 'pattern_detected'];
-  private readonly severities: AlertSeverity[] = ['low', 'medium', 'high', 'critical'];
+  private readonly alertTypes: AlertType[] = ['bullying', 'violence', 'distress', 'medical_emergency'];
+  private readonly priorities: AlertPriority[] = ['low', 'medium', 'high', 'critical'];
+  private readonly classrooms = ['ROOM-205A', 'ROOM-106B', 'ROOM-301C', 'ROOM-208A', 'ROOM-155B'];
   private readonly studentIds = ['STU001', 'STU002', 'STU003', 'STU004', 'STU005', 'STU006', 'STU007'];
 
-  private readonly transcripts = [
-    "I don't want to go to school anymore, everyone makes fun of me",
-    "Stop pushing me around, leave me alone",
-    "Nobody likes me here, I feel so alone",
-    "This happens every day, I can't take it anymore",
-    "They took my lunch money again",
-    "I'm scared to walk home alone"
+  private readonly summaries = [
+    "Real-time detected emotional distress pattern",
+    "Verbal confrontation escalating between students",
+    "Physical altercation detected in progress",
+    "Student requesting immediate assistance",
+    "Aggressive behavior pattern requiring intervention"
   ];
 
-  private readonly snippets = [
-    "Student showing signs of withdrawal during recess",
-    "Aggressive behavior observed in hallway",
-    "Student isolated from peer group",
-    "Repeated verbal confrontations detected",
-    "Physical altercation in cafeteria area",
-    "Student expressing distress in counselor meeting"
+  private readonly keyIndicators = [
+    ["emotional distress", "help-seeking behavior", "peer conflict"],
+    ["verbal aggression", "confrontational posture", "escalating tension"],
+    ["physical contact", "aggressive movement", "immediate threat"],
+    ["distress signals", "withdrawal behavior", "social isolation"],
+    ["pattern recognition", "repeated incidents", "risk escalation"]
   ];
 
   constructor(
@@ -36,25 +35,43 @@ export class AlertGenerator {
     }
 
     const generateAlert = () => {
+      const classroomId = this.classrooms[Math.floor(Math.random() * this.classrooms.length)];
       const hasEvidence = Math.random() > 0.3;
+      const alertType = this.alertTypes[Math.floor(Math.random() * this.alertTypes.length)];
       
-      const randomAlert: Omit<Alert, 'id' | 'createdAt'> = {
-        studentId: this.studentIds[Math.floor(Math.random() * this.studentIds.length)],
-        type: this.alertTypes[Math.floor(Math.random() * this.alertTypes.length)],
-        severity: this.severities[Math.floor(Math.random() * this.severities.length)],
-        confidence: Math.round((Math.random() * 0.4 + 0.6) * 100) / 100,
-        status: 'open',
-        evidence: hasEvidence ? {
-          thumbUrl: `https://picsum.photos/200/150?random=${Date.now()}`,
-          transcript: Math.random() > 0.5 ? this.transcripts[Math.floor(Math.random() * this.transcripts.length)] : undefined,
-          snippet: this.snippets[Math.floor(Math.random() * this.snippets.length)]
-        } : undefined
+      // Generate affected students (1-2 for real-time alerts)
+      const numStudents = Math.floor(Math.random() * 2) + 1;
+      const selectedStudents = this.studentIds.sort(() => 0.5 - Math.random()).slice(0, numStudents);
+      const roles: ('target' | 'aggressor' | 'bystander')[] = ['target', 'aggressor'];
+      
+      const randomAlert: Omit<Alert, 'alert_id' | 'timestamp'> = {
+        classroom_id: classroomId,
+        alert_type: alertType,
+        priority: this.priorities[Math.floor(Math.random() * this.priorities.length)],
+        risk_score: Math.round((Math.random() * 0.4 + 0.6) * 100) / 100, // 0.6 to 1.0 for generated alerts
+        status: 'new',
+        affected_students: selectedStudents.map((studentId, index) => ({
+          student_id: studentId,
+          role: roles[index % roles.length],
+          confidence: Math.round((Math.random() * 0.3 + 0.7) * 100) / 100 // Higher confidence for real-time
+        })),
+        evidence_package: hasEvidence ? {
+          primary_evidence: `https://secure-evidence.edu/live/${Date.now()}.mp4`,
+          context_window: Math.floor(Math.random() * 60) + 30, // 30-90 seconds
+          redaction_applied: false // Live alerts typically not pre-redacted
+        } : undefined,
+        explanation: {
+          summary: this.summaries[Math.floor(Math.random() * this.summaries.length)],
+          key_indicators: this.keyIndicators[Math.floor(Math.random() * this.keyIndicators.length)]
+        }
       };
 
       const newAlert = this.dataStore.addAlert(randomAlert);
-      console.log(`Generated new alert: ${newAlert.id} - ${newAlert.type} (${newAlert.severity})`);
+      console.log(`Generated new alert: ${newAlert.alert_id} - ${newAlert.alert_type} (${newAlert.priority})`);
       
+      // Emit to specific classroom and general topics
       this.io.emit('alert.new', newAlert);
+      this.io.emit(`alert.new.${newAlert.classroom_id}`, newAlert);
 
       const nextInterval = Math.random() * (30000 - 15000) + 15000;
       this.interval = setTimeout(generateAlert, nextInterval);
