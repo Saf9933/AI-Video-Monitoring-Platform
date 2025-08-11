@@ -35,11 +35,8 @@ app.get('/api/alerts', (req, res) => {
     alerts = alerts.filter(alert => alert.priority === priority);
   }
   
-  res.json({
-    alerts,
-    total_count: alerts.length,
-    has_more: false
-  });
+  // Return direct array for prototype simplicity
+  res.json(alerts);
 });
 
 app.get('/api/alerts/:alert_id', (req, res) => {
