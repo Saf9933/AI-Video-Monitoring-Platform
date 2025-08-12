@@ -233,8 +233,8 @@
       "type": "string"
     },
     "alert_type": {
-      "enum": ["bullying", "violence", "distress", "medical_emergency", "weapon_detected"],
-      "description": "Primary classification of safety concern"
+      "enum": ["bullying", "violence", "distress", "medical_emergency", "weapon_detected", "exam_pressure", "isolation_bullying", "self_harm", "teacher_verbal_abuse", "cyber_tracking"],
+      "description": "Primary classification of safety concern covering 5 core scenarios"
     },
     "priority": {
       "enum": ["low", "medium", "high", "critical"],
@@ -318,7 +318,10 @@
             "vision_confidence": {"type": "number"},
             "audio_confidence": {"type": "number"}, 
             "text_confidence": {"type": "number"},
-            "fusion_confidence": {"type": "number"}
+            "fusion_confidence": {"type": "number"},
+            "pressure_index": {"type": "number", "minimum": 0, "maximum": 1, "description": "Based on heart rate variability and micro-expression intensity"},
+            "exclusion_rate": {"type": "number", "minimum": 0, "maximum": 1, "description": "Empty seats within 2m around target student"},
+            "oppression_index": {"type": "number", "minimum": 0, "maximum": 1, "description": "Legal-BERT contextual analysis, >0.85 indicates psychological oppression"}
           }
         }
       }

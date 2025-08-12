@@ -2,6 +2,7 @@
 
 ## Deployment Architecture
 
+Please check deployment.png
 ```mermaid
 graph TB
     subgraph "Classroom Edge (Per Room)"
@@ -100,14 +101,27 @@ graph TB
 
 ## Infrastructure Components
 
-### Edge Hardware Specifications
+### 边缘硬件规格
 
-| Component | Model | Specifications | Quantity per Classroom | Cost |
-|-----------|-------|----------------|----------------------|------|
-| Edge Computer | NVIDIA Jetson Orin NX | 32GB RAM, 1024 CUDA cores, 100 TOPS | 1 | $599 |
-| IP Camera | Axis P1375-E | 4K 30fps, H.265, PoE+, night vision | 1-2 | $299 |
-| Microphone Array | Shure MXA310 | 6-channel ceiling mount, noise cancellation | 1 | $899 |
-| Network Switch | Ubiquiti UniFi | 8-port PoE+, managed, 1Gb uplink | 1 | $179 |
+**摄像头部署密度**（基于实际调研数据）：
+
+| 区域类型 | 安装密度 | 功能定位 | 典型场景 | 智能分析功能 |
+|----------|----------|----------|----------|-------------|
+| 教学楼走廊 | 每层 8-12 台（间距 < 15 米） | 学生行为轨迹追踪 + 紧急事件响应 | 课间追逐摔倒预警（响应 < 5 秒）、欺凌行为识别（检出率 91%） | 异常行为识别（跌倒/奔跑/聚集） |
+| 教室内部 | 每室 1 台（后墙高位安装） | 教学秩序监控 + 考场压力监测 | 多媒体设备异常移动报警、手部颤抖频率 > 3Hz 检测 | 压力指数计算、微表情 AU4/AU7 识别 |
+| 食堂操作间 | 关键点位 100% 覆盖 | 食品安全监控 + 座位排斥率分析 | 未戴手套操作识别（准确率 99%）、午餐座位排斥率 > 80% | 食堂轨迹跟踪算法 |
+| 操场/体育馆 | 每 400㎡ 1 台（全景 + 特写） | 运动安全监测 + 群体事件预警 | 足球碰撞伤害预判（提前 1.2 秒报警）、突发聚集识别（>50 人集群检测） | 运动伤害预判 + 设施损坏检测 |
+| 实验室 | 每室 2-3 台（重点设备聚焦） | 危险操作监管 + 设备安全 | 危化品违规取用识别（准确率 97%）、明火异常检测（响应 < 3 秒） | 危险操作监管 |
+| 学生宿舍 | 仅走廊/楼梯间安装（每层 ≥ 4 台） | 夜间安全管控 + 人员进出管理 | 晚归学生记录（22:00 后）、可疑人员尾随预警 | 热力图人流统计 + 滞留预警 |
+
+**硬件规格表**：
+
+| 组件    | 型号                    | 规格                            | 每间教室数量 | 成本    |
+| ----- | --------------------- | ----------------------------- | ------ | ----- |
+| 边缘计算机 | NVIDIA Jetson Orin NX | 32GB 内存，1024 CUDA 核心，100 TOPS | 1      | \$599 |
+| 网络摄像机 | Axis P1375-E          | 4K 30帧/秒，H.265，PoE+，夜视功能，400万像素广角镜头（覆盖角度 ≥ 110°）      | 1–2    | \$299 |
+| 麦克风阵列 | Shure MXA310          | 6通道天花板安装，降噪功能                 | 1      | \$899 |
+| 网络交换机 | Ubiquiti UniFi        | 8口 PoE+，可管理，1Gb 上行            | 1      | \$179 |
 
 ### Cloud Infrastructure
 
@@ -197,15 +211,17 @@ School Network
 └── Bandwidth: 100Mbps+ per school
 ```
 
-### Security Layers
-1. **Device Level**: TPM 2.0 secure boot, certificate-based auth
-2. **Network Level**: VPN tunnels, certificate pinning, DPI firewall
-3. **Application Level**: mTLS, RBAC, API rate limiting
-4. **Data Level**: AES-256 encryption at rest and in transit
+### 安全层级
+
+1. **设备层**：TPM 2.0 安全启动、基于证书的身份验证
+2. **网络层**：VPN 隧道、证书绑定、DPI 防火墙
+3. **应用层**：mTLS、基于角色的访问控制（RBAC）、API 速率限制
+4. **数据层**：AES-256 静态与传输加密
 
 ## Disaster Recovery & High Availability
 
 ### Multi-Region Strategy
+please check deployment1.png
 ```mermaid
 graph LR
     Primary[Primary Region<br/>us-east-1<br/>Active] 
@@ -234,11 +250,12 @@ graph LR
     DR --- DRS3
 ```
 
-### Availability Targets
-- **Classroom Devices**: 99.0% (individual device failures acceptable)
-- **School Network**: 99.5% (redundant internet connections)  
-- **Cloud Infrastructure**: 99.9% (multi-AZ deployment)
-- **Overall System**: 99.5% during school hours (7 AM - 6 PM)
+### 可用性目标
+
+* **教室设备**：99.0%（允许单个设备故障）
+* **校园网络**：99.5%（冗余互联网连接）
+* **云基础设施**：99.9%（多可用区部署）
+* **整体系统**：在上课时间（上午 7 点 - 下午 6 点）保持 99.5%
 
 ### Backup & Recovery
 ```yaml
@@ -262,7 +279,7 @@ backup_strategy:
 ## Alternate Architecture: Serverless Deployment
 
 For smaller deployments (<20 schools, <1000 classrooms), consider a serverless architecture:
-
+please check deployment2.png
 ```mermaid
 graph TD
     Edge[Edge Devices] --> Gateway[API Gateway]
@@ -277,23 +294,24 @@ graph TD
     StepFunctions --> SNS[SNS Notifications]
 ```
 
-### Serverless Components
-- **API Gateway**: REST endpoints, WebSocket connections
-- **Lambda**: Event processing, business logic (15min timeout)
-- **SageMaker**: Serverless inference for ML models  
-- **DynamoDB**: NoSQL storage with auto-scaling
-- **Kinesis**: Real-time streaming analytics
-- **EventBridge**: Event routing and scheduling
+### 无服务器组件
 
-### Trade-offs vs. Container Deployment
+* **API Gateway**：REST 接口、WebSocket 连接
+* **Lambda**：事件处理、业务逻辑（15 分钟超时）
+* **SageMaker**：无服务器机器学习模型推理
+* **DynamoDB**：支持自动扩展的 NoSQL 存储
+* **Kinesis**：实时流式分析
+* **EventBridge**：事件路由与调度
 
-| Aspect | Containers (EKS) | Serverless |
-|--------|------------------|------------|
-| **Cost** | Fixed costs, volume discounts | Pay-per-request, no idle costs |
-| **Latency** | <100ms consistent | 1-5s cold start potential |
-| **Scaling** | Manual configuration | Automatic, unlimited |
-| **Complexity** | Higher operational overhead | Simpler operations |
-| **Vendor Lock-in** | Platform agnostic | AWS specific |
-| **Monitoring** | Full control | Limited observability |
+### 与容器部署的权衡
 
-**Recommendation**: Use serverless for pilot deployments and smaller districts; migrate to containers for production scale (>5000 classrooms).
+| 方面       | 容器（EKS）   | 无服务器        |
+| -------- | --------- | ----------- |
+| **成本**   | 固定成本、批量折扣 | 按请求计费，无空闲成本 |
+| **延迟**   | 稳定 <100ms | 冷启动可能 1-5 秒 |
+| **扩展性**  | 手动配置      | 自动、无限扩展     |
+| **复杂度**  | 运维开销较高    | 运维更简单       |
+| **厂商锁定** | 平台无关      | 依赖 AWS      |
+| **监控**   | 完全可控      | 可观测性有限      |
+
+**建议**：在试点部署和小型学区使用无服务器架构；规模超过 5000 间教室时迁移到容器化生产环境。
