@@ -90,7 +90,7 @@ export function assertThemeConsistency(): void {
 
 // Component for development mode theme debugging
 export function ThemeDebugger({ visible = false }: { visible?: boolean }): JSX.Element | null {
-  if (!visible || process.env.NODE_ENV !== 'development') return null;
+  if (!visible || !import.meta.env.DEV) return null;
 
   const result = runThemeCheck();
   
@@ -120,7 +120,7 @@ export function ThemeDebugger({ visible = false }: { visible?: boolean }): JSX.E
 }
 
 // Auto-run theme check in development
-if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+if (typeof window !== 'undefined' && import.meta.env.DEV) {
   // Wait for DOM to be ready
   const runCheck = () => {
     try {

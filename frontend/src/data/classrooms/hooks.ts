@@ -34,7 +34,7 @@ import {
 } from './mockData';
 
 // Environment flag to switch between Mock and Live providers
-const USE_LIVE_API = process.env.REACT_APP_API_MODE === 'live';
+const USE_LIVE_API = import.meta.env.VITE_API_MODE === 'live';
 
 // Query key factories
 export const queryKeys = {

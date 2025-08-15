@@ -51,7 +51,7 @@ i18n
     returnNull: false,
     
     // Enable debug in development
-    debug: process.env.NODE_ENV === 'development',
+    debug: import.meta.env.DEV,
   });
 
 export default i18n;
