@@ -103,36 +103,36 @@ export default function AlertSummary({ alerts, stats }: AlertSummaryProps) {
 
   const getCardColor = (color: string) => {
     const colors = {
-      red: 'border-red-200 bg-red-50',
-      yellow: 'border-yellow-200 bg-yellow-50',
-      green: 'border-green-200 bg-green-50',
-      blue: 'border-blue-200 bg-blue-50',
-      purple: 'border-purple-200 bg-purple-50',
-      orange: 'border-orange-200 bg-orange-50'
+      red: 'border-red-700 bg-red-900/30',
+      yellow: 'border-yellow-700 bg-yellow-900/30',
+      green: 'border-green-700 bg-green-900/30',
+      blue: 'border-blue-700 bg-blue-900/30',
+      purple: 'border-purple-700 bg-purple-900/30',
+      orange: 'border-orange-700 bg-orange-900/30'
     };
     return colors[color as keyof typeof colors];
   };
 
   const getTextColor = (color: string) => {
     const colors = {
-      red: 'text-red-900',
-      yellow: 'text-yellow-900',
-      green: 'text-green-900',
-      blue: 'text-blue-900',
-      purple: 'text-purple-900',
-      orange: 'text-orange-900'
+      red: 'text-red-300',
+      yellow: 'text-yellow-300',
+      green: 'text-green-300',
+      blue: 'text-blue-300',
+      purple: 'text-purple-300',
+      orange: 'text-orange-300'
     };
     return colors[color as keyof typeof colors];
   };
 
   const getSubtextColor = (color: string) => {
     const colors = {
-      red: 'text-red-600',
-      yellow: 'text-yellow-600',
-      green: 'text-green-600',
-      blue: 'text-blue-600',
-      purple: 'text-purple-600',
-      orange: 'text-orange-600'
+      red: 'text-red-400',
+      yellow: 'text-yellow-400',
+      green: 'text-green-400',
+      blue: 'text-blue-400',
+      purple: 'text-purple-400',
+      orange: 'text-orange-400'
     };
     return colors[color as keyof typeof colors];
   };
@@ -145,7 +145,7 @@ export default function AlertSummary({ alerts, stats }: AlertSummaryProps) {
           <div key={index} className={`p-4 border rounded-lg ${getCardColor(metric.color)}`}>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">{metric.title}</p>
+                <p className="text-sm font-medium text-slate-400">{metric.title}</p>
                 <p className={`text-2xl font-bold ${getTextColor(metric.color)}`}>
                   {metric.value}
                 </p>
@@ -164,10 +164,10 @@ export default function AlertSummary({ alerts, stats }: AlertSummaryProps) {
       </div>
 
       {/* Core Safety Scenarios Breakdown */}
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
+      <div className="bg-slate-800/50 rounded-lg border border-slate-700 p-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-medium text-gray-900">Core Safety Scenarios</h3>
-          <span className="text-sm text-gray-500">5 primary monitoring patterns</span>
+          <h3 className="text-lg font-medium text-white">核心安全场景</h3>
+          <span className="text-sm text-slate-400">5 primary monitoring patterns</span>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
@@ -180,11 +180,11 @@ export default function AlertSummary({ alerts, stats }: AlertSummaryProps) {
           ].map((scenario) => {
             const count = coreScenarios[scenario.key as keyof typeof coreScenarios];
             return (
-              <div key={scenario.key} className="text-center p-3 border rounded-lg bg-gray-50">
+              <div key={scenario.key} className="text-center p-3 border border-slate-600 rounded-lg bg-slate-700/30">
                 <div className="text-2xl mb-1">{scenario.icon}</div>
-                <div className="text-lg font-semibold text-gray-900">{count}</div>
-                <div className="text-sm font-medium text-gray-700">{scenario.label}</div>
-                <div className="text-xs text-gray-500 mt-1">{scenario.desc}</div>
+                <div className="text-lg font-semibold text-white">{count}</div>
+                <div className="text-sm font-medium text-slate-300">{scenario.label}</div>
+                <div className="text-xs text-slate-400 mt-1">{scenario.desc}</div>
               </div>
             );
           })}

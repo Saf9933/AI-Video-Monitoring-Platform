@@ -130,16 +130,16 @@ export default function QuickActions({ alertStats }: QuickActionsProps) {
 
   const getButtonStyles = (color: string, disabled: boolean) => {
     if (disabled) {
-      return 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200';
+      return 'bg-slate-700/30 text-slate-500 cursor-not-allowed border-slate-600';
     }
 
     const styles = {
-      red: 'bg-red-50 text-red-700 border-red-200 hover:bg-red-100',
-      blue: 'bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100',
-      green: 'bg-green-50 text-green-700 border-green-200 hover:bg-green-100',
-      purple: 'bg-purple-50 text-purple-700 border-purple-200 hover:bg-purple-100',
-      orange: 'bg-orange-50 text-orange-700 border-orange-200 hover:bg-orange-100',
-      yellow: 'bg-yellow-50 text-yellow-700 border-yellow-200 hover:bg-yellow-100'
+      red: 'bg-red-900/30 text-red-300 border-red-700 hover:bg-red-900/50',
+      blue: 'bg-blue-900/30 text-blue-300 border-blue-700 hover:bg-blue-900/50',
+      green: 'bg-green-900/30 text-green-300 border-green-700 hover:bg-green-900/50',
+      purple: 'bg-purple-900/30 text-purple-300 border-purple-700 hover:bg-purple-900/50',
+      orange: 'bg-orange-900/30 text-orange-300 border-orange-700 hover:bg-orange-900/50',
+      yellow: 'bg-yellow-900/30 text-yellow-300 border-yellow-700 hover:bg-yellow-900/50'
     };
 
     return styles[color as keyof typeof styles] || styles.blue;
@@ -148,10 +148,10 @@ export default function QuickActions({ alertStats }: QuickActionsProps) {
   return (
     <div className="space-y-6">
       {/* Main Quick Actions */}
-      <div className="bg-white rounded-lg border border-gray-200">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-medium text-gray-900">Quick Actions</h3>
-          <p className="text-sm text-gray-500">Common tasks and shortcuts</p>
+      <div className="bg-slate-800/50 rounded-lg border border-slate-700">
+        <div className="px-6 py-4 border-b border-slate-700">
+          <h3 className="text-lg font-medium text-white">快速操作</h3>
+          <p className="text-sm text-slate-400">Common tasks and shortcuts</p>
         </div>
         
         <div className="p-6">
@@ -180,10 +180,10 @@ export default function QuickActions({ alertStats }: QuickActionsProps) {
       </div>
 
       {/* Core Safety Scenarios */}
-      <div className="bg-white rounded-lg border border-gray-200">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-medium text-gray-900">Core Safety Scenarios</h3>
-          <p className="text-sm text-gray-500">5 primary monitoring patterns</p>
+      <div className="bg-slate-800/50 rounded-lg border border-slate-700">
+        <div className="px-6 py-4 border-b border-slate-700">
+          <h3 className="text-lg font-medium text-white">核心安全场景</h3>
+          <p className="text-sm text-slate-400">5 primary monitoring patterns</p>
         </div>
         
         <div className="p-6">
@@ -209,10 +209,10 @@ export default function QuickActions({ alertStats }: QuickActionsProps) {
       </div>
 
       {/* Emergency Procedures */}
-      <div className="bg-white rounded-lg border border-gray-200">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-medium text-gray-900">Emergency Procedures</h3>
-          <p className="text-sm text-gray-500">For immediate threats requiring intervention</p>
+      <div className="bg-slate-800/50 rounded-lg border border-slate-700">
+        <div className="px-6 py-4 border-b border-slate-700">
+          <h3 className="text-lg font-medium text-white">应急程序</h3>
+          <p className="text-sm text-slate-400">For immediate threats requiring intervention</p>
         </div>
         
         <div className="p-6">
@@ -236,24 +236,24 @@ export default function QuickActions({ alertStats }: QuickActionsProps) {
           </div>
           
           {/* SLO Performance Indicators */}
-          <div className="mt-6 pt-6 border-t border-gray-200">
-            <h4 className="text-sm font-medium text-gray-900 mb-3">System Performance (SLO)</h4>
+          <div className="mt-6 pt-6 border-t border-slate-700">
+            <h4 className="text-sm font-medium text-white mb-3">System Performance (SLO)</h4>
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div className="flex justify-between">
-                <span className="text-gray-600">Response Time (p95):</span>
-                <span className="text-green-600 font-medium">&lt; 3s</span>
+                <span className="text-slate-400">Response Time (p95):</span>
+                <span className="text-green-400 font-medium">&lt; 3s</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Availability (7AM-6PM):</span>
-                <span className="text-green-600 font-medium">99.5%</span>
+                <span className="text-slate-400">Availability (7AM-6PM):</span>
+                <span className="text-green-400 font-medium">99.5%</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Alert Generation:</span>
-                <span className="text-green-600 font-medium">&lt; 1.2s avg</span>
+                <span className="text-slate-400">Alert Generation:</span>
+                <span className="text-green-400 font-medium">&lt; 1.2s avg</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Privacy Compliance:</span>
-                <span className="text-green-600 font-medium">100%</span>
+                <span className="text-slate-400">Privacy Compliance:</span>
+                <span className="text-green-400 font-medium">100%</span>
               </div>
             </div>
           </div>

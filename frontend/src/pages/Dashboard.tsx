@@ -11,8 +11,8 @@ export default function Dashboard() {
     return (
       <div className="flex items-center justify-center min-h-64">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-2"></div>
-          <p className="text-gray-600">Loading dashboard...</p>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mx-auto mb-2"></div>
+          <p className="text-slate-300">Loading dashboard...</p>
         </div>
       </div>
     );
@@ -20,12 +20,12 @@ export default function Dashboard() {
 
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+      <div className="bg-red-900/50 border border-red-700 rounded-lg p-4">
         <div className="flex items-center">
-          <span className="text-red-500 text-xl mr-2">⚠️</span>
+          <span className="text-red-400 text-xl mr-2">⚠️</span>
           <div>
-            <h3 className="text-red-800 font-medium">Error Loading Dashboard</h3>
-            <p className="text-red-600 text-sm mt-1">Unable to fetch alert data. Please try refreshing the page.</p>
+            <h3 className="text-red-200 font-medium">Error Loading Dashboard</h3>
+            <p className="text-red-300 text-sm mt-1">Unable to fetch alert data. Please try refreshing the page.</p>
           </div>
         </div>
       </div>
@@ -40,11 +40,11 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       {/* Page Header with Privacy & Compliance Status */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
+      <div className="bg-slate-800/50 border-b border-slate-700 px-6 py-4 rounded-lg">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Safety Dashboard</h1>
-            <p className="text-gray-600 mt-1">
+            <h1 className="text-2xl font-bold text-white">安全仪表板</h1>
+            <p className="text-slate-300 mt-1">
               Real-time student safety monitoring across {totalClassrooms} classrooms
             </p>
           </div>
@@ -52,18 +52,18 @@ export default function Dashboard() {
             {/* System Status Indicators */}
             <div className="flex items-center space-x-4 text-sm">
               <div className="flex items-center space-x-1">
-                <div className={`w-2 h-2 rounded-full ${websocketService.isConnected ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></div>
-                <span className="text-gray-600">
+                <div className={`w-2 h-2 rounded-full ${websocketService.isConnected ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`}></div>
+                <span className="text-slate-300">
                   {websocketService.isConnected ? 'Live monitoring active' : 'Connection lost'}
                 </span>
               </div>
               <div className="flex items-center space-x-1">
-                <div className={`w-2 h-2 rounded-full ${privacyCompliant ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
-                <span className="text-gray-600">
+                <div className={`w-2 h-2 rounded-full ${privacyCompliant ? 'bg-green-400' : 'bg-yellow-400'}`}></div>
+                <span className="text-slate-300">
                   Privacy {privacyCompliant ? 'compliant' : 'review needed'}
                 </span>
               </div>
-              <div className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+              <div className="text-xs text-slate-400 bg-slate-700 px-2 py-1 rounded">
                 SLO: &lt;3s p95 response time
               </div>
             </div>
@@ -96,16 +96,16 @@ export default function Dashboard() {
       </div>
 
       {/* Enhanced Classroom Status Overview with Privacy Compliance */}
-      <div className="bg-white rounded-lg border border-gray-200">
-        <div className="px-6 py-4 border-b border-gray-200">
+      <div className="bg-slate-800/50 rounded-lg border border-slate-700">
+        <div className="px-6 py-4 border-b border-slate-700">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-lg font-medium text-gray-900">Classroom Status</h3>
-              <p className="text-sm text-gray-500">
+              <h3 className="text-lg font-medium text-white">教室状态</h3>
+              <p className="text-sm text-slate-400">
                 {totalClassrooms} monitored rooms • {activeClassrooms} with active alerts
               </p>
             </div>
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-slate-400">
               Last updated: {new Date().toLocaleTimeString()}
             </div>
           </div>
@@ -115,52 +115,52 @@ export default function Dashboard() {
           {Object.keys(classroomStats).length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {Object.entries(classroomStats).map(([classroomId, classroomData]) => (
-                <div key={classroomId} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                <div key={classroomId} className="border border-slate-600 rounded-lg p-4 hover:bg-slate-700/50 transition-colors">
                   <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-medium text-gray-900">{classroomId}</h4>
+                    <h4 className="font-medium text-white">{classroomId}</h4>
                     <div className="flex items-center space-x-2">
                       {/* Privacy Compliance Indicator */}
-                      <div className={`w-2 h-2 rounded-full ${classroomData.privacyCompliance ? 'bg-green-500' : 'bg-yellow-500'}`} 
+                      <div className={`w-2 h-2 rounded-full ${classroomData.privacyCompliance ? 'bg-green-400' : 'bg-yellow-400'}`} 
                            title={`Privacy ${classroomData.privacyCompliance ? 'compliant' : 'needs review'}`}></div>
                       {/* Alert Status Indicator */}
                       <span className={`w-3 h-3 rounded-full ${
-                        classroomData.newAlerts > 0 ? 'bg-red-500' : 'bg-green-500'
+                        classroomData.newAlerts > 0 ? 'bg-red-400' : 'bg-green-400'
                       }`}></span>
                     </div>
                   </div>
                   
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Active Alerts:</span>
-                      <span className={classroomData.newAlerts > 0 ? 'text-red-600 font-medium' : 'text-gray-900'}>
+                      <span className="text-slate-400">Active Alerts:</span>
+                      <span className={classroomData.newAlerts > 0 ? 'text-red-300 font-medium' : 'text-slate-300'}>
                         {classroomData.newAlerts}
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Total Alerts:</span>
-                      <span className="text-gray-900">{classroomData.totalAlerts}</span>
+                      <span className="text-slate-400">Total Alerts:</span>
+                      <span className="text-slate-300">{classroomData.totalAlerts}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Avg Risk:</span>
+                      <span className="text-slate-400">Avg Risk:</span>
                       <span className={
-                        classroomData.avgRiskScore > 75 ? 'text-red-600' : 
-                        classroomData.avgRiskScore > 50 ? 'text-yellow-600' : 'text-green-600'
+                        classroomData.avgRiskScore > 75 ? 'text-red-300' : 
+                        classroomData.avgRiskScore > 50 ? 'text-yellow-300' : 'text-green-300'
                       }>
                         {classroomData.avgRiskScore}%
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Consent:</span>
+                      <span className="text-slate-400">Consent:</span>
                       <span className={
-                        classroomData.consentStatus === 'full_consent' ? 'text-green-600' :
-                        classroomData.consentStatus === 'partial_redacted' ? 'text-yellow-600' : 'text-red-600'
+                        classroomData.consentStatus === 'full_consent' ? 'text-green-300' :
+                        classroomData.consentStatus === 'partial_redacted' ? 'text-yellow-300' : 'text-red-300'
                       }>
                         {classroomData.consentStatus.replace('_', ' ')}
                       </span>
                     </div>
-                    <div className="flex justify-between text-xs border-t pt-2 mt-2">
-                      <span className="text-gray-500">Last Activity:</span>
-                      <span className="text-gray-700">{new Date(classroomData.lastActivity).toLocaleTimeString()}</span>
+                    <div className="flex justify-between text-xs border-t border-slate-600 pt-2 mt-2">
+                      <span className="text-slate-500">Last Activity:</span>
+                      <span className="text-slate-400">{new Date(classroomData.lastActivity).toLocaleTimeString()}</span>
                     </div>
                   </div>
                 </div>
@@ -169,37 +169,37 @@ export default function Dashboard() {
           ) : (
             <div className="text-center py-8">
               <div className="text-4xl mb-2">🏫</div>
-              <p className="text-gray-500">No classroom data available</p>
-              <p className="text-xs text-gray-400 mt-1">Check edge device connectivity</p>
+              <p className="text-slate-400">No classroom data available</p>
+              <p className="text-xs text-slate-500 mt-1">Check edge device connectivity</p>
             </div>
           )}
         </div>
       </div>
 
       {/* Enhanced System Status Footer with SLO Monitoring */}
-      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-        <div className="flex items-center justify-between text-sm text-gray-600">
+      <div className="bg-slate-800/30 border border-slate-700 rounded-lg p-4">
+        <div className="flex items-center justify-between text-sm text-slate-400">
           <div className="flex items-center space-x-6">
             <div className="flex items-center space-x-1">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <div className="w-2 h-2 bg-green-400 rounded-full"></div>
               <span>System Online</span>
             </div>
             <div className="flex items-center space-x-1">
-              <div className={`w-2 h-2 rounded-full ${websocketService.isConnected ? 'bg-blue-500' : 'bg-red-500'}`}></div>
+              <div className={`w-2 h-2 rounded-full ${websocketService.isConnected ? 'bg-blue-400' : 'bg-red-400'}`}></div>
               <span>WebSocket {websocketService.isConnected ? 'Connected' : 'Disconnected'}</span>
             </div>
             <div className="flex items-center space-x-1">
-              <div className={`w-2 h-2 rounded-full ${privacyCompliant ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
+              <div className={`w-2 h-2 rounded-full ${privacyCompliant ? 'bg-green-400' : 'bg-yellow-400'}`}></div>
               <span>FERPA/COPPA Compliant</span>
             </div>
             <div className="flex items-center space-x-1">
-              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+              <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
               <span>False Positive Rate: {stats.falsePositiveRate}%</span>
             </div>
           </div>
           <div className="flex items-center space-x-4 text-xs">
             <span>Last Updated: {new Date().toLocaleTimeString()}</span>
-            <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">
+            <span className="bg-blue-900/50 text-blue-300 px-2 py-1 rounded">
               API: https://api.safety-platform.edu/v1
             </span>
           </div>

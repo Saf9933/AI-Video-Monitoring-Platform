@@ -32,23 +32,23 @@ export default function RecentActivity({ alerts, limit = 10 }: RecentActivityPro
 
   const getPriorityColor = (priority: string): string => {
     switch (priority) {
-      case 'critical': return 'bg-red-100 text-red-800';
-      case 'high': return 'bg-orange-100 text-orange-800';
-      case 'medium': return 'bg-yellow-100 text-yellow-800';
-      case 'low': return 'bg-blue-100 text-blue-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'critical': return 'bg-red-900/50 text-red-200';
+      case 'high': return 'bg-orange-900/50 text-orange-200';
+      case 'medium': return 'bg-yellow-900/50 text-yellow-200';
+      case 'low': return 'bg-blue-900/50 text-blue-200';
+      default: return 'bg-slate-700/50 text-slate-300';
     }
   };
 
   const getStatusColor = (status: string): string => {
     switch (status) {
-      case 'new': return 'bg-red-50 text-red-700 border-red-200';
-      case 'acknowledged': return 'bg-yellow-50 text-yellow-700 border-yellow-200';
-      case 'in_progress': return 'bg-blue-50 text-blue-700 border-blue-200';
-      case 'escalated': return 'bg-orange-50 text-orange-700 border-orange-200';
-      case 'resolved': return 'bg-green-50 text-green-700 border-green-200';
-      case 'false_positive': return 'bg-gray-50 text-gray-700 border-gray-200';
-      default: return 'bg-gray-50 text-gray-700 border-gray-200';
+      case 'new': return 'bg-red-900/30 text-red-300 border-red-700';
+      case 'acknowledged': return 'bg-yellow-900/30 text-yellow-300 border-yellow-700';
+      case 'in_progress': return 'bg-blue-900/30 text-blue-300 border-blue-700';
+      case 'escalated': return 'bg-orange-900/30 text-orange-300 border-orange-700';
+      case 'resolved': return 'bg-green-900/30 text-green-300 border-green-700';
+      case 'false_positive': return 'bg-slate-700/30 text-slate-300 border-slate-600';
+      default: return 'bg-slate-700/30 text-slate-300 border-slate-600';
     }
   };
 
@@ -100,24 +100,24 @@ export default function RecentActivity({ alerts, limit = 10 }: RecentActivityPro
 
   if (recentAlerts.length === 0) {
     return (
-      <div className="bg-white rounded-lg border border-gray-200 p-6 text-center">
+      <div className="bg-slate-800/50 rounded-lg border border-slate-700 p-6 text-center">
         <div className="text-4xl mb-2">🎉</div>
-        <h3 className="text-lg font-medium text-gray-900 mb-1">All Clear!</h3>
-        <p className="text-gray-500">No recent alerts to display.</p>
+        <h3 className="text-lg font-medium text-white mb-1">All Clear!</h3>
+        <p className="text-slate-400">No recent alerts to display.</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200">
-      <div className="px-6 py-4 border-b border-gray-200">
-        <h3 className="text-lg font-medium text-gray-900">Recent Activity</h3>
-        <p className="text-sm text-gray-500">Latest {limit} safety alerts across all monitored classrooms</p>
+    <div className="bg-slate-800/50 rounded-lg border border-slate-700">
+      <div className="px-6 py-4 border-b border-slate-700">
+        <h3 className="text-lg font-medium text-white">最近活动</h3>
+        <p className="text-sm text-slate-400">Latest {limit} safety alerts across all monitored classrooms</p>
       </div>
       
-      <div className="divide-y divide-gray-200 max-h-96 overflow-y-auto">
+      <div className="divide-y divide-slate-700 max-h-96 overflow-y-auto">
         {recentAlerts.map((alert) => (
-          <div key={alert.alert_id} className="p-4 hover:bg-gray-50 transition-colors">
+          <div key={alert.alert_id} className="p-4 hover:bg-slate-700/50 transition-colors">
             <div className="flex items-start justify-between">
               <div className="flex items-start space-x-3 flex-1">
                 <div className="text-xl mt-0.5">
@@ -126,7 +126,7 @@ export default function RecentActivity({ alerts, limit = 10 }: RecentActivityPro
                 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center space-x-2 mb-1">
-                    <span className="font-medium text-gray-900 capitalize">
+                    <span className="font-medium text-white capitalize">
                       {alert.alert_type.replace('_', ' ')}
                     </span>
                     <span className={`px-2 py-1 rounded text-xs font-medium ${getPriorityColor(alert.priority)}`}>
@@ -139,16 +139,16 @@ export default function RecentActivity({ alerts, limit = 10 }: RecentActivityPro
                     )}
                   </div>
                   
-                  <div className="text-sm text-gray-600 mb-1">
+                  <div className="text-sm text-slate-300 mb-1">
                     {alert.classroom_id} • Risk: {(alert.risk_score * 100).toFixed(1)}%
                     {alert.assigned_staff?.teacher_id && (
-                      <span className="ml-2 text-blue-600">
+                      <span className="ml-2 text-blue-400">
                         → {alert.assigned_staff.teacher_id}
                       </span>
                     )}
                   </div>
                   
-                  <div className="text-xs text-gray-500 mb-2">
+                  <div className="text-xs text-slate-400 mb-2">
                     {formatTimeAgo(alert.timestamp)} • {getScenarioDescription(alert.alert_type)}
                   </div>
                   
