@@ -1,0 +1,339 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "search": "Search",
+    "filter": "Filter",
+    "refresh": "Refresh",
+    "export": "Export",
+    "import": "Import",
+    "settings": "Settings",
+    "help": "Help",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "finish": "Finish",
+    "yes": "Yes",
+    "no": "No",
+    "all": "All",
+    "none": "None",
+    "total": "Total",
+    "count": "Count",
+    "time": "Time",
+    "date": "Date",
+    "status": "Status",
+    "type": "Type",
+    "priority": "Priority",
+    "actions": "Actions",
+    "details": "Details",
+    "description": "Description",
+    "name": "Name",
+    "id": "ID",
+    "created": "Created",
+    "updated": "Updated",
+    "user": "User",
+    "system": "System"
+  },
+  "classrooms": {
+    "title": "Classroom Management",
+    "subtitle": "Real-time Monitoring Platform",
+    "directory": {
+      "title": "Classroom Directory",
+      "subtitle": "Classroom Status Overview",
+      "searchPlaceholder": "Search classroom name, school or department...",
+      "filters": {
+        "all": "All Classrooms",
+        "school": "School",
+        "department": "Department",
+        "status": "Status",
+        "alertLevel": "Alert Level",
+        "timeRange": "Time Range"
+      },
+      "statusFilters": {
+        "all": "All Status",
+        "online": "Online",
+        "offline": "Offline",
+        "warning": "Warning",
+        "error": "Error"
+      },
+      "alertFilters": {
+        "all": "All Levels",
+        "l0": "Normal",
+        "l1": "Low Risk",
+        "l2": "Medium Risk",
+        "l3": "High Risk"
+      },
+      "columns": {
+        "name": "Classroom Name",
+        "school": "School/Department", 
+        "teacher": "Instructor",
+        "status": "Status",
+        "lastEvent": "Last Event",
+        "trends": "Trends",
+        "deviceHealth": "Device Health",
+        "alertCount": "24h Alerts"
+      },
+      "batchActions": {
+        "title": "Batch Actions",
+        "subscribe": "Subscribe to Alerts",
+        "addToWall": "Add to Monitor Wall",
+        "exportCsv": "Export CSV"
+      }
+    },
+    "monitoring": {
+      "title": "Real-time Monitoring",
+      "subtitle": "Classroom Monitoring Details",
+      "videoPreview": "Video Preview",
+      "audioPreview": "Audio Preview",
+      "liveAlerts": "Live Alerts",
+      "metrics": {
+        "title": "Key Metrics",
+        "stress": "Stress Level",
+        "isolation": "Isolation Index",
+        "aggression": "Aggression Behavior"
+      },
+      "operations": {
+        "acknowledge": "Acknowledge Alert",
+        "assign": "Assign Handler",
+        "escalate": "Escalate Alert",
+        "addNote": "Add Note",
+        "startWorkflow": "Start Workflow"
+      },
+      "deviceHealth": {
+        "title": "Device Health",
+        "heartbeat": "Heartbeat Status",
+        "gpu": "GPU Status",
+        "latency": "Stream Latency",
+        "fps": "Frame Rate"
+      },
+      "auditTail": {
+        "title": "Audit Trail",
+        "recentActions": "Recent Actions"
+      }
+    },
+    "alerts": {
+      "title": "Alert Timeline",
+      "subtitle": "Event History & Triage",
+      "timeline": "Timeline View",
+      "grouping": "Incident Grouping",
+      "deduplication": "Deduplication",
+      "triage": {
+        "title": "Triage Processing",
+        "evidence": "Evidence Thumbnails",
+        "shap": "SHAP Explanation",
+        "confidence": "Confidence Interval",
+        "actions": {
+          "markFalsePositive": "Mark False Positive",
+          "notifyCounselor": "Notify Counselor",
+          "attachManual": "Attach Manual",
+          "requestReview": "Request Model Review"
+        }
+      },
+      "biasWarning": {
+        "title": "Bias Warning",
+        "approaching": "Approaching 5% bias threshold"
+      }
+    },
+    "indicators": {
+      "title": "Analytics Indicators",
+      "subtitle": "Data Analysis & Comparison",
+      "timeSeries": "Time Series",
+      "heatmap": "Heat Map",
+      "comparison": {
+        "title": "Comparison Analysis",
+        "classroom": "This Classroom",
+        "department": "Department Average",
+        "school": "School Average"
+      },
+      "anonymity": {
+        "warning": "Small group data suppressed per K-anonymity threshold"
+      }
+    },
+    "interventions": {
+      "title": "Intervention Manual",
+      "subtitle": "Standardized Process Workflows",
+      "templates": {
+        "emotional": "Emotional Fluctuation",
+        "disruption": "Classroom Disruption",
+        "selfHarm": "Self-harm Risk",
+        "bullying": "Bullying Incident"
+      },
+      "workflow": {
+        "checklist": "Process Checklist",
+        "assignee": "Assignee",
+        "sla": "SLA Timer",
+        "confirmation": "15-min Confirmation"
+      }
+    },
+    "settings": {
+      "title": "Classroom Settings",
+      "subtitle": "Configuration & Management",
+      "thresholds": {
+        "title": "Alert Thresholds",
+        "stress": "Stress Threshold",
+        "isolation": "Isolation Threshold",
+        "aggression": "Aggression Threshold"
+      },
+      "schedule": {
+        "title": "Quiet Hours",
+        "description": "Set do-not-disturb periods"
+      },
+      "notifications": {
+        "title": "Notification Routing",
+        "email": "Email Notifications",
+        "sms": "SMS Notifications",
+        "webhook": "Webhook"
+      },
+      "devices": {
+        "title": "Device Binding",
+        "camera": "Camera Device",
+        "audio": "Audio Device"
+      },
+      "features": {
+        "title": "Feature Toggles",
+        "realtime": "Real-time Analysis",
+        "recording": "Video Recording",
+        "privacy": "Privacy Mode"
+      }
+    },
+    "audit": {
+      "title": "Audit Log",
+      "subtitle": "Operation Records & Compliance",
+      "filters": {
+        "user": "User",
+        "action": "Action Type",
+        "timeRange": "Time Range"
+      },
+      "columns": {
+        "timestamp": "Timestamp",
+        "user": "User",
+        "action": "Action",
+        "target": "Target",
+        "result": "Result",
+        "hash": "Payload Hash"
+      },
+      "export": {
+        "title": "Export Audit",
+        "csv": "Export CSV",
+        "json": "Export JSON"
+      }
+    }
+  },
+  "rbac": {
+    "roles": {
+      "professor": "Professor",
+      "director": "Director"
+    },
+    "toggle": {
+      "title": "Role Switch",
+      "currentRole": "Current Role",
+      "switchTo": "Switch to",
+      "enterPin": "Please enter PIN",
+      "pinPlaceholder": "4-digit PIN",
+      "confirm": "Confirm Switch",
+      "cancel": "Cancel"
+    },
+    "errors": {
+      "wrongPin": "Wrong PIN, please try again",
+      "unauthorized": "Unauthorized access to this page",
+      "roleRequired": "{{role}} permission required"
+    },
+    "permissions": {
+      "viewAllClassrooms": "View all classrooms",
+      "viewAssignedClassrooms": "View assigned classrooms only",
+      "viewOriginalVideo": "View original video stream",
+      "viewBlurredVideo": "View blurred video only",
+      "exportAuditLogs": "Export audit logs",
+      "modifySettings": "Modify system settings"
+    }
+  },
+  "alerts": {
+    "levels": {
+      "l0": "Normal",
+      "l1": "Low Risk",
+      "l2": "Medium Risk",
+      "l3": "High Risk"
+    },
+    "types": {
+      "stress": "Stress Alert",
+      "isolation": "Isolation Alert",
+      "aggression": "Aggression Alert",
+      "disruption": "Disruption Alert"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "assign": "Assign",
+      "escalate": "Escalate",
+      "resolve": "Resolve",
+      "falsePositive": "False Positive"
+    },
+    "status": {
+      "new": "New",
+      "acknowledged": "Acknowledged",
+      "assigned": "Assigned",
+      "inProgress": "In Progress",
+      "resolved": "Resolved",
+      "closed": "Closed"
+    }
+  },
+  "analytics": {
+    "title": "Data Analytics",
+    "timeRanges": {
+      "24h": "Past 24 Hours",
+      "7d": "Past 7 Days",
+      "30d": "Past 30 Days",
+      "90d": "Past 90 Days"
+    },
+    "metrics": {
+      "totalAlerts": "Total Alerts",
+      "resolutionRate": "Resolution Rate",
+      "avgResponseTime": "Avg Response Time",
+      "falsePositiveRate": "False Positive Rate",
+      "accuracy": "Detection Accuracy"
+    },
+    "charts": {
+      "alertTrends": "Alert Trends",
+      "typeBreakdown": "Type Breakdown",
+      "classroomPerformance": "Classroom Performance"
+    }
+  },
+  "interventions": {
+    "templates": {
+      "emotional": "Emotional Fluctuation",
+      "disruption": "Classroom Disruption",
+      "selfHarm": "Self-harm Risk",
+      "bullying": "Bullying Incident"
+    },
+    "status": {
+      "pending": "Pending",
+      "active": "Active",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
+  },
+  "audit": {
+    "actions": {
+      "create": "Create",
+      "update": "Update",
+      "delete": "Delete",
+      "view": "View",
+      "export": "Export",
+      "login": "Login",
+      "logout": "Logout"
+    },
+    "targets": {
+      "classroom": "Classroom",
+      "alert": "Alert",
+      "user": "User",
+      "setting": "Setting"
+    }
+  }
+}

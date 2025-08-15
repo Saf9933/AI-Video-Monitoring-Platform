@@ -1,0 +1,339 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "cancel": "取消",
+    "confirm": "确认",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "view": "查看",
+    "search": "搜索",
+    "filter": "筛选",
+    "refresh": "刷新",
+    "export": "导出",
+    "import": "导入",
+    "settings": "设置",
+    "help": "帮助",
+    "close": "关闭",
+    "back": "返回",
+    "next": "下一步",
+    "previous": "上一步",
+    "finish": "完成",
+    "yes": "是",
+    "no": "否",
+    "all": "全部",
+    "none": "无",
+    "total": "总计",
+    "count": "数量",
+    "time": "时间",
+    "date": "日期",
+    "status": "状态",
+    "type": "类型",
+    "priority": "优先级",
+    "actions": "操作",
+    "details": "详情",
+    "description": "描述",
+    "name": "名称",
+    "id": "ID",
+    "created": "创建时间",
+    "updated": "更新时间",
+    "user": "用户",
+    "system": "系统"
+  },
+  "classrooms": {
+    "title": "教室管理",
+    "subtitle": "实时监控与管理平台",
+    "directory": {
+      "title": "教室目录",
+      "subtitle": "教室状态总览",
+      "searchPlaceholder": "搜索教室名称、学校或院系...",
+      "filters": {
+        "all": "全部教室",
+        "school": "学校",
+        "department": "院系",
+        "status": "状态",
+        "alertLevel": "告警级别",
+        "timeRange": "时间范围"
+      },
+      "statusFilters": {
+        "all": "全部状态",
+        "online": "在线",
+        "offline": "离线",
+        "warning": "警告",
+        "error": "错误"
+      },
+      "alertFilters": {
+        "all": "全部级别",
+        "l0": "正常",
+        "l1": "低风险",
+        "l2": "中风险", 
+        "l3": "高风险"
+      },
+      "columns": {
+        "name": "教室名称",
+        "school": "学校/院系",
+        "teacher": "主讲教师",
+        "status": "状态",
+        "lastEvent": "最近事件",
+        "trends": "趋势图",
+        "deviceHealth": "设备健康",
+        "alertCount": "24h告警数"
+      },
+      "batchActions": {
+        "title": "批量操作",
+        "subscribe": "订阅告警",
+        "addToWall": "加入监控墙",
+        "exportCsv": "导出CSV"
+      }
+    },
+    "monitoring": {
+      "title": "实时监控",
+      "subtitle": "教室监控详情",
+      "videoPreview": "视频预览",
+      "audioPreview": "音频预览", 
+      "liveAlerts": "实时告警",
+      "metrics": {
+        "title": "关键指标",
+        "stress": "压力水平",
+        "isolation": "排斥指数",
+        "aggression": "压迫行为"
+      },
+      "operations": {
+        "acknowledge": "确认告警",
+        "assign": "分配处理",
+        "escalate": "升级告警",
+        "addNote": "添加备注",
+        "startWorkflow": "启动作业手册"
+      },
+      "deviceHealth": {
+        "title": "设备运维",
+        "heartbeat": "心跳状态",
+        "gpu": "GPU状态",
+        "latency": "流延迟",
+        "fps": "帧率"
+      },
+      "auditTail": {
+        "title": "操作审计",
+        "recentActions": "最近操作"
+      }
+    },
+    "alerts": {
+      "title": "告警时间轴",
+      "subtitle": "事件历史与分流处理",
+      "timeline": "时间轴视图",
+      "grouping": "事故聚合",
+      "deduplication": "去重合并",
+      "triage": {
+        "title": "分流处理",
+        "evidence": "证据缩略",
+        "shap": "SHAP解释",
+        "confidence": "置信区间",
+        "actions": {
+          "markFalsePositive": "标记误报",
+          "notifyCounselor": "通知辅导员",
+          "attachManual": "附加手册",
+          "requestReview": "请求模型复核"
+        }
+      },
+      "biasWarning": {
+        "title": "偏差预警",
+        "approaching": "接近5%偏差阈值"
+      }
+    },
+    "indicators": {
+      "title": "分析指标",
+      "subtitle": "数据分析与对比",
+      "timeSeries": "时间序列",
+      "heatmap": "热力图",
+      "comparison": {
+        "title": "对比分析",
+        "classroom": "本教室",
+        "department": "院系平均",
+        "school": "学校平均"
+      },
+      "anonymity": {
+        "warning": "小群体数据已按K匿名阈值抑制"
+      }
+    },
+    "interventions": {
+      "title": "干预手册",
+      "subtitle": "标准化处理流程",
+      "templates": {
+        "emotional": "情绪波动处理",
+        "disruption": "课堂扰动处理",
+        "selfHarm": "自伤风险处理",
+        "bullying": "霸凌事件处理"
+      },
+      "workflow": {
+        "checklist": "处理清单",
+        "assignee": "责任人",
+        "sla": "SLA计时器",
+        "confirmation": "15分钟确认"
+      }
+    },
+    "settings": {
+      "title": "教室设置",
+      "subtitle": "配置与管理",
+      "thresholds": {
+        "title": "告警阈值",
+        "stress": "压力阈值",
+        "isolation": "排斥阈值",
+        "aggression": "压迫阈值"
+      },
+      "schedule": {
+        "title": "静默时段",
+        "description": "设置免打扰时间"
+      },
+      "notifications": {
+        "title": "通知路由",
+        "email": "邮件通知",
+        "sms": "短信通知",
+        "webhook": "Webhook"
+      },
+      "devices": {
+        "title": "设备绑定",
+        "camera": "摄像设备",
+        "audio": "音频设备"
+      },
+      "features": {
+        "title": "特性开关",
+        "realtime": "实时分析",
+        "recording": "录像存储",
+        "privacy": "隐私模式"
+      }
+    },
+    "audit": {
+      "title": "审计日志",
+      "subtitle": "操作记录与合规",
+      "filters": {
+        "user": "操作用户",
+        "action": "操作类型", 
+        "timeRange": "时间范围"
+      },
+      "columns": {
+        "timestamp": "操作时间",
+        "user": "操作用户",
+        "action": "操作类型",
+        "target": "操作对象",
+        "result": "操作结果",
+        "hash": "负载哈希"
+      },
+      "export": {
+        "title": "导出审计",
+        "csv": "导出CSV",
+        "json": "导出JSON"
+      }
+    }
+  },
+  "rbac": {
+    "roles": {
+      "professor": "教授",
+      "director": "主任"
+    },
+    "toggle": {
+      "title": "角色切换",
+      "currentRole": "当前角色",
+      "switchTo": "切换到",
+      "enterPin": "请输入PIN码",
+      "pinPlaceholder": "4位PIN码",
+      "confirm": "确认切换",
+      "cancel": "取消"
+    },
+    "errors": {
+      "wrongPin": "PIN码错误，请重试",
+      "unauthorized": "无权访问此页面",
+      "roleRequired": "需要{{role}}权限"
+    },
+    "permissions": {
+      "viewAllClassrooms": "查看所有教室",
+      "viewAssignedClassrooms": "仅查看分配教室",
+      "viewOriginalVideo": "查看原始视频流",
+      "viewBlurredVideo": "仅查看模糊视频",
+      "exportAuditLogs": "导出审计日志",
+      "modifySettings": "修改系统设置"
+    }
+  },
+  "alerts": {
+    "levels": {
+      "l0": "正常",
+      "l1": "低风险",
+      "l2": "中风险",
+      "l3": "高风险"
+    },
+    "types": {
+      "stress": "压力预警",
+      "isolation": "排斥预警", 
+      "aggression": "压迫预警",
+      "disruption": "扰动预警"
+    },
+    "actions": {
+      "acknowledge": "确认告警",
+      "assign": "分配处理",
+      "escalate": "升级处理",
+      "resolve": "标记解决",
+      "falsePositive": "误报"
+    },
+    "status": {
+      "new": "新告警",
+      "acknowledged": "已确认",
+      "assigned": "已分配",
+      "inProgress": "处理中",
+      "resolved": "已解决",
+      "closed": "已关闭"
+    }
+  },
+  "analytics": {
+    "title": "数据分析",
+    "timeRanges": {
+      "24h": "过去24小时",
+      "7d": "过去7天",
+      "30d": "过去30天",
+      "90d": "过去90天"
+    },
+    "metrics": {
+      "totalAlerts": "总告警数",
+      "resolutionRate": "解决率",
+      "avgResponseTime": "平均响应时间",
+      "falsePositiveRate": "误报率",
+      "accuracy": "检测准确率"
+    },
+    "charts": {
+      "alertTrends": "告警趋势",
+      "typeBreakdown": "类型分布",
+      "classroomPerformance": "教室表现"
+    }
+  },
+  "interventions": {
+    "templates": {
+      "emotional": "情绪波动",
+      "disruption": "课堂扰动",
+      "selfHarm": "自伤风险",
+      "bullying": "霸凌事件"
+    },
+    "status": {
+      "pending": "待处理",
+      "active": "进行中",
+      "completed": "已完成",
+      "cancelled": "已取消"
+    }
+  },
+  "audit": {
+    "actions": {
+      "create": "创建",
+      "update": "更新",
+      "delete": "删除",
+      "view": "查看",
+      "export": "导出",
+      "login": "登录",
+      "logout": "登出"
+    },
+    "targets": {
+      "classroom": "教室",
+      "alert": "告警",
+      "user": "用户",
+      "setting": "设置"
+    }
+  }
+}
