@@ -5,13 +5,10 @@ import {
   ArrowLeft, 
   Grid, 
   List, 
-  Filter, 
   Search, 
   RefreshCw,
   AlertTriangle,
   CheckCircle,
-  Clock,
-  Eye,
   EyeOff
 } from 'lucide-react';
 import { useScenarioCameras, useCameraActions } from '../../hooks/scenarios/useScenarioCameras';

@@ -3,8 +3,40 @@
 
 import React, { useState } from 'react';
 import { useRBAC } from '../rbac/RBACProvider';
-import { useClassrooms, useAlerts, useWebSocket } from '../../data/classrooms/hooks';
 import { Shield, User, Eye, EyeOff, Wifi, WifiOff } from 'lucide-react';
+
+// Mock data for demo purposes since we removed the classrooms data
+const mockClassrooms = [
+  { id: 'ROOM-101A', name: '101教室', status: 'active' },
+  { id: 'ROOM-102A', name: '102教室', status: 'active' },
+  { id: 'ROOM-103A', name: '103教室', status: 'active' },
+  { id: 'ROOM-201A', name: '201教室', status: 'active' },
+  { id: 'ROOM-202A', name: '202教室', status: 'active' },
+];
+
+const mockAlerts = [
+  { id: 'ALT-001', status: 'new', classroomId: 'ROOM-101A' },
+  { id: 'ALT-002', status: 'acknowledged', classroomId: 'ROOM-102A' },
+  { id: 'ALT-003', status: 'new', classroomId: 'ROOM-201A' },
+];
+
+const mockMessages = [
+  { id: 'MSG-001', type: 'alert', payload: { classroomId: 'ROOM-101A' } },
+  { id: 'MSG-002', type: 'update', payload: { classroomId: 'ROOM-102A' } },
+  { id: 'MSG-003', type: 'alert', payload: { classroomId: 'ROOM-201A' } },
+];
+
+interface Alert {
+  id: string;
+  status: string;
+  classroomId: string;
+}
+
+interface Message {
+  id: string;
+  type: string;
+  payload: { classroomId: string };
+}
 
 export function RoleScopeDemo() {
   const { 
@@ -16,16 +48,15 @@ export function RoleScopeDemo() {
     switchRole 
   } = useRBAC();
   
-  const { data: classroomsData, isLoading: classroomsLoading } = useClassrooms();
-  const { data: alertsData, isLoading: alertsLoading } = useAlerts();
-  const { connectionStatus, messages } = useWebSocket();
+  // Mock data since we removed the classrooms hooks
+  const classrooms = mockClassrooms;
+  const alerts = mockAlerts;
+  const connectionStatus = { connected: true };
+  const messages = mockMessages;
   
   const [showDetails, setShowDetails] = useState(false);
-  const [pin, setPin] = useState('');
   const [switchingRole, setSwitchingRole] = useState(false);
 
-  const classrooms = classroomsData?.data || [];
-  const alerts = alertsData?.data || [];
   const isDirector = currentRole === 'director';
   const recentMessages = messages.slice(-5);
 
@@ -36,7 +67,7 @@ export function RoleScopeDemo() {
     
     const success = await switchRole(targetRole, targetPin);
     if (success) {
-      setPin('');
+      // Role switch successful
     }
     setSwitchingRole(false);
   };
@@ -180,7 +211,7 @@ export function RoleScopeDemo() {
             <div className="flex justify-between text-sm">
               <span className="text-slate-400">新告警:</span>
               <span className="text-white font-medium">
-                {alerts.filter(a => a.status === 'new').length}
+                {alerts.filter((a: Alert) => a.status === 'new').length}
               </span>
             </div>
             {!isDirector && (
@@ -208,7 +239,7 @@ export function RoleScopeDemo() {
               <h4 className="text-white font-medium mb-2">📡 最近WebSocket消息</h4>
               <div className="space-y-1 max-h-20 overflow-y-auto">
                 {recentMessages.length > 0 ? (
-                  recentMessages.map(msg => (
+                  recentMessages.map((msg: Message) => (
                     <div key={msg.id} className="text-xs text-slate-400">
                       {msg.type}: {msg.payload.classroomId || 'system'}
                     </div>
