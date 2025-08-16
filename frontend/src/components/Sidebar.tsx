@@ -12,7 +12,8 @@ import {
   Shield, 
   Bell,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  MonitorSpeaker
 } from 'lucide-react';
 
 const items = [
@@ -21,7 +22,7 @@ const items = [
   { path: '/analytics', label: '数据分析', labelEn: 'Analytics', icon: TrendingUp },
   { path: '/students', label: '学生档案', labelEn: 'Students', icon: Users },
   { path: '/notifications', label: '通知中心', labelEn: 'Notifications', icon: Bell },
-  { path: '/classrooms', label: '教室监控', labelEn: 'Classrooms', icon: School },
+  { path: '/scenarios', label: '监控场景', labelEn: 'Scenarios', icon: MonitorSpeaker },
   { path: '/settings', label: '系统设置', labelEn: 'Settings', icon: Settings },
 ];
 

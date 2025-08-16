@@ -8,9 +8,9 @@ import Alerts from '../pages/Alerts';
 import Analytics from '../pages/Analytics';
 import StudentManagement from '../pages/StudentManagement';
 import NotificationsCenter from '../pages/NotificationsCenter';
-import ClassroomDirectory from '../pages/classrooms/ClassroomDirectory';
-import ClassroomMonitoring from '../pages/classrooms/ClassroomMonitoring';
 import SystemSettings from '../pages/SystemSettings';
+import ScenariosHub from '../pages/scenarios/ScenariosHub';
+import ScenarioPage from '../pages/scenarios/ScenarioPage';
 
 const queryClient = new QueryClient();
 
@@ -26,8 +26,8 @@ export default function App() {
               <Route path="analytics" element={<Analytics />} />
               <Route path="students" element={<StudentManagement />} />
               <Route path="notifications" element={<NotificationsCenter />} />
-              <Route path="classrooms" element={<ClassroomDirectory />} />
-              <Route path="classrooms/:id" element={<ClassroomMonitoring />} />
+              <Route path="scenarios" element={<ScenariosHub />} />
+              <Route path="scenarios/:scenarioId" element={<ScenarioPage />} />
               <Route path="settings" element={<SystemSettings />} />
             </Route>
           </Routes>
