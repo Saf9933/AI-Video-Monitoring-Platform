@@ -1,8 +1,9 @@
 // Data provider hooks for the classroom management system
-// Supports both Mock and Live providers via environment flag
+// Supports both Mock and Live providers via environment flag with RBAC scope filtering
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRBAC } from '../../components/rbac/RBACProvider';
 import {
   Classroom,
   Alert,
@@ -74,8 +75,25 @@ const simulateApiDelay = <T>(data: T, delay: number = 200): Promise<T> => {
   });
 };
 
+// Scope filtering helper
+const applyScopeFilter = <T extends { id: string }>(items: T[], allowedRoomIds: '*' | string[]): T[] => {
+  if (allowedRoomIds === '*') {
+    return items;
+  }
+  return items.filter(item => allowedRoomIds.includes(item.id));
+};
+
+// Unauthorized response for out-of-scope rooms
+const createUnauthorizedResponse = (roomId: string) => ({
+  error: 'ROOM_ACCESS_DENIED',
+  message: `无权访问该教室 ${roomId} / No access to classroom ${roomId}`,
+  roomId
+});
+
 // Classrooms Hooks
 export const useClassrooms = (filters: ClassroomFilter = {}, pagination: PaginationParams = { page: 1, limit: 50 }) => {
+  const { allowedRoomIds, isRoomAccessible } = useRBAC();
+  
   return useQuery({
     queryKey: queryKeys.classrooms.list(filters),
     queryFn: async (): Promise<PaginatedResponse<Classroom>> => {
@@ -85,6 +103,9 @@ export const useClassrooms = (filters: ClassroomFilter = {}, pagination: Paginat
       } else {
         // Mock implementation with filtering and pagination
         let filteredClassrooms = [...mockClassrooms];
+        
+        // Apply RBAC scope filter FIRST - this is the key change
+        filteredClassrooms = applyScopeFilter(filteredClassrooms, allowedRoomIds);
         
         // Apply search filter
         if (filters.search) {
@@ -142,9 +163,16 @@ export const useClassrooms = (filters: ClassroomFilter = {}, pagination: Paginat
 };
 
 export const useClassroom = (id: string) => {
+  const { isRoomAccessible } = useRBAC();
+  
   return useQuery({
     queryKey: queryKeys.classrooms.detail(id),
     queryFn: async (): Promise<Classroom | null> => {
+      // Check room access first
+      if (!isRoomAccessible(id)) {
+        throw new Error(createUnauthorizedResponse(id).message);
+      }
+      
       if (USE_LIVE_API) {
         throw new Error('Live API not implemented yet');
       } else {
@@ -159,6 +187,8 @@ export const useClassroom = (id: string) => {
 
 // Alerts Hooks
 export const useAlerts = (filters: AlertFilter = {}, pagination: PaginationParams = { page: 1, limit: 20 }) => {
+  const { allowedRoomIds, isRoomAccessible } = useRBAC();
+  
   return useQuery({
     queryKey: queryKeys.alerts.list(filters),
     queryFn: async (): Promise<PaginatedResponse<Alert>> => {
@@ -166,6 +196,13 @@ export const useAlerts = (filters: AlertFilter = {}, pagination: PaginationParam
         throw new Error('Live API not implemented yet');
       } else {
         let filteredAlerts = [...mockAlerts];
+        
+        // Apply RBAC scope filter FIRST - filter alerts by accessible classrooms
+        if (allowedRoomIds !== '*') {
+          filteredAlerts = filteredAlerts.filter(alert =>
+            isRoomAccessible(alert.classroomId)
+          );
+        }
         
         // Apply classroom filter
         if (filters.classroomIds?.length) {
@@ -504,7 +541,7 @@ export const useAssignAlert = () => {
   });
 };
 
-// WebSocket Hook
+// WebSocket Hook with RBAC scope integration
 export const useWebSocket = () => {
   const [connectionStatus, setConnectionStatus] = useState<WSConnectionStatus>({
     connected: false,
@@ -512,9 +549,13 @@ export const useWebSocket = () => {
   });
   const [messages, setMessages] = useState<WebSocketMessage[]>([]);
   const queryClient = useQueryClient();
+  const { allowedRoomIds, currentRole, isRoomAccessible } = useRBAC();
 
   const connect = useCallback(async () => {
     try {
+      // Update WebSocket scope before connecting
+      mockWebSocket.updateScope(allowedRoomIds, currentRole);
+      
       await mockWebSocket.connect();
       setConnectionStatus({
         connected: true,
@@ -528,7 +569,7 @@ export const useWebSocket = () => {
         reconnectAttempts: prev.reconnectAttempts + 1
       }));
     }
-  }, []);
+  }, [allowedRoomIds, currentRole]);
 
   const disconnect = useCallback(() => {
     mockWebSocket.disconnect();
@@ -536,8 +577,20 @@ export const useWebSocket = () => {
   }, []);
 
   useEffect(() => {
-    // Set up message listeners
+    // Update WebSocket scope when role or scope changes
+    if (connectionStatus.connected) {
+      mockWebSocket.updateScope(allowedRoomIds, currentRole);
+    }
+  }, [allowedRoomIds, currentRole, connectionStatus.connected]);
+
+  useEffect(() => {
+    // Set up message listeners with additional scope filtering (defense in depth)
     const handleNewAlert = (data: any) => {
+      // Double-check room access before processing the alert
+      if (!isRoomAccessible(data.classroomId)) {
+        return; // Drop the message if user doesn't have access
+      }
+      
       const message: WebSocketMessage = {
         type: 'alert.new',
         payload: data,
@@ -551,6 +604,11 @@ export const useWebSocket = () => {
     };
 
     const handleMetricsUpdate = (data: any) => {
+      // Double-check room access before processing metrics
+      if (!isRoomAccessible(data.classroomId)) {
+        return; // Drop the message if user doesn't have access
+      }
+      
       const message: WebSocketMessage = {
         type: 'metrics.update',
         payload: data,
@@ -580,6 +638,11 @@ export const useWebSocket = () => {
     };
 
     const handleDeviceStatus = (data: any) => {
+      // Double-check room access before processing device status
+      if (!isRoomAccessible(data.classroomId)) {
+        return; // Drop the message if user doesn't have access
+      }
+      
       const message: WebSocketMessage = {
         type: 'device.status',
         payload: data,
@@ -621,7 +684,7 @@ export const useWebSocket = () => {
       mockWebSocket.off('device.status', handleDeviceStatus);
       disconnect();
     };
-  }, [connect, disconnect, queryClient]);
+  }, [connect, disconnect, queryClient, isRoomAccessible]);
 
   return {
     connectionStatus,
@@ -631,12 +694,19 @@ export const useWebSocket = () => {
   };
 };
 
-// Real-time metrics hook
+// Real-time metrics hook with RBAC scope filtering
 export const useRealtimeMetrics = (classroomId: string) => {
   const [metrics, setMetrics] = useState<ClassroomMetrics | null>(null);
   const { messages } = useWebSocket();
+  const { isRoomAccessible } = useRBAC();
 
   useEffect(() => {
+    // Only process metrics if user has access to this classroom
+    if (!isRoomAccessible(classroomId)) {
+      setMetrics(null);
+      return;
+    }
+
     // Filter messages for this classroom
     const latestMetrics = messages
       .filter(msg => msg.type === 'metrics.update' && msg.payload.classroomId === classroomId)
@@ -676,7 +746,7 @@ export const useRealtimeMetrics = (classroomId: string) => {
         }
       });
     }
-  }, [classroomId, messages]);
+  }, [classroomId, messages, isRoomAccessible]);
 
   return metrics;
 };

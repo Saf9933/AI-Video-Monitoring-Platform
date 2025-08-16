@@ -23,13 +23,16 @@ i18n
       lookupLocalStorage: 'i18nextLng',
     },
 
-    // Available languages
-    supportedLngs: ['zh-CN', 'en'],
+    // Available languages - include both zh and zh-CN to handle browser detection
+    supportedLngs: ['zh-CN', 'zh', 'en'],
 
     // Translation resources - use the JSON files directly
     resources: {
       'zh-CN': {
         translation: zhCN
+      },
+      'zh': {
+        translation: zhCN // Use same translations for 'zh' as 'zh-CN'
       },
       'en': {
         translation: en

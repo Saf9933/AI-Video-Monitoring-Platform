@@ -335,5 +335,235 @@
       "user": "用户",
       "setting": "设置"
     }
+  },
+  "systemSettings": {
+    "title": "系统设置",
+    "subtitle": "全局配置与管理",
+    "unsavedChanges": "未保存更改",
+    "saveChanges": "保存更改",
+    "discardChanges": "撤销更改",
+    "restrictedByRole": "基于角色不可编辑",
+    "tabs": {
+      "overview": "平台概览",
+      "organization": "组织与品牌",
+      "auth": "身份与访问",
+      "alerts": "告警与级别",
+      "notifications": "通知与渠道",
+      "realtime": "实时与性能",
+      "integrations": "集成",
+      "flags": "特性开关",
+      "maintenance": "审计与维护"
+    },
+    "overview": {
+      "title": "平台概览",
+      "subtitle": "系统状态总览",
+      "systemInfo": {
+        "title": "系统信息",
+        "version": "应用版本",
+        "buildHash": "构建哈希",
+        "uptime": "运行时间",
+        "wsStatus": "WebSocket状态",
+        "queueLag": "队列延迟",
+        "dataMode": "数据模式"
+      },
+      "quickActions": {
+        "title": "快速操作",
+        "reloadConfig": "重载配置",
+        "clearCache": "清除缓存"
+      },
+      "status": {
+        "connected": "已连接",
+        "disconnected": "已断开",
+        "reconnecting": "重连中",
+        "mock": "模拟数据",
+        "live": "真实数据"
+      }
+    },
+    "organization": {
+      "title": "组织与品牌",
+      "subtitle": "机构信息与外观设置",
+      "organizationName": "机构名称",
+      "logoUpload": "机构标识",
+      "logoUploadDesc": "建议尺寸: 120x40px",
+      "primaryColor": "主色调",
+      "faviconUpload": "网站图标",
+      "faviconUploadDesc": "建议尺寸: 32x32px",
+      "themePreview": "主题预览",
+      "uploadLogo": "上传标识",
+      "uploadFavicon": "上传图标",
+      "removeLogo": "移除标识",
+      "removeFavicon": "移除图标"
+    },
+    "auth": {
+      "title": "身份与访问",
+      "subtitle": "登录方式与权限管理",
+      "oneTimeCodes": {
+        "title": "一次性登录码",
+        "description": "生成新的角色登录码。注意：后端将强制身份验证，这是演示UI。",
+        "generate": "生成新码",
+        "generateProfessor": "生成教授码",
+        "generateDirector": "生成主任码",
+        "activeCodes": "活跃登录码",
+        "role": "角色",
+        "code": "登录码",
+        "created": "创建时间",
+        "copy": "复制",
+        "revoke": "撤销",
+        "revoked": "已撤销",
+        "copied": "已复制到剪贴板"
+      },
+      "roleDefaults": {
+        "title": "角色默认设置",
+        "defaultRole": "新码默认角色",
+        "sessionLength": "会话时长（分钟）",
+        "idleTimeout": "空闲超时（分钟）"
+      }
+    },
+    "alerts": {
+      "title": "告警与级别",
+      "subtitle": "全局阈值与预设配置",
+      "thresholds": {
+        "title": "全局阈值",
+        "okMax": "正常上限",
+        "l1Min": "L1级别下限",
+        "l2Min": "L2级别下限", 
+        "l3Min": "L3级别下限",
+        "minConfidence": "最小置信度",
+        "debounceMs": "防抖间隔（毫秒）"
+      },
+      "defaultFilters": {
+        "title": "默认筛选器",
+        "description": "新仪表板的默认筛选设置",
+        "l2Plus": "L2+快捷筛选"
+      }
+    },
+    "notifications": {
+      "title": "通知与渠道",
+      "subtitle": "通知接收人与发送渠道",
+      "recipients": {
+        "title": "全局接收人/群组",
+        "addRecipient": "添加接收人",
+        "name": "姓名",
+        "role": "角色",
+        "actions": "操作",
+        "counselor": "辅导员",
+        "director": "主任",
+        "edit": "编辑",
+        "remove": "移除"
+      },
+      "channels": {
+        "title": "通知渠道",
+        "sms": "短信",
+        "email": "邮件",
+        "wecom": "企业微信",
+        "testNotification": "发送测试通知",
+        "testing": "发送中..."
+      },
+      "policies": {
+        "title": "重试策略与限制",
+        "retryPolicy": "重试策略",
+        "rateLimitPerMin": "速率限制（每分钟）",
+        "none": "无重试",
+        "simple": "简单重试",
+        "exponential": "指数退避"
+      }
+    },
+    "realtime": {
+      "title": "实时与性能",
+      "subtitle": "WebSocket与性能优化",
+      "websocket": {
+        "title": "WebSocket设置",
+        "reconnectBackoff": "重连退避策略",
+        "none": "无退避",
+        "linear": "线性退避",
+        "expo": "指数退避"
+      },
+      "performance": {
+        "title": "性能设置",
+        "pollingSec": "轮询间隔（秒）",
+        "targetP95Ms": "目标P95响应时间（毫秒）",
+        "virtualization": "目录虚拟化（1k+）",
+        "coldStartHints": "冷启动提示"
+      }
+    },
+    "integrations": {
+      "title": "集成",
+      "subtitle": "外部系统连接配置",
+      "endpoints": {
+        "title": "端点配置",
+        "apiBase": "API基础URL",
+        "wsBase": "WebSocket URL",
+        "lmsBase": "LMS端点",
+        "kafkaBrokers": "Kafka代理"
+      },
+      "testing": {
+        "title": "连接测试",
+        "testConnection": "测试连接",
+        "testApi": "测试API",
+        "testWs": "测试WebSocket",
+        "testLms": "测试LMS",
+        "testKafka": "测试Kafka",
+        "testing": "测试中...",
+        "success": "连接成功",
+        "failed": "连接失败"
+      }
+    },
+    "flags": {
+      "title": "特性开关",
+      "subtitle": "模块启用/禁用设置",
+      "modules": {
+        "title": "功能模块",
+        "classrooms": "教室监控",
+        "alerts": "告警管理",
+        "analytics": "数据分析",
+        "monitorWall": "监控墙"
+      },
+      "features": {
+        "title": "功能特性",
+        "shapExplanations": "SHAP解释",
+        "shortcuts": "键盘快捷键"
+      }
+    },
+    "maintenance": {
+      "title": "审计与维护",
+      "subtitle": "系统审计与维护工具",
+      "auditLog": {
+        "title": "审计日志",
+        "recentChanges": "最近设置变更",
+        "actor": "操作人",
+        "action": "操作",
+        "time": "时间",
+        "details": "详情",
+        "hash": "哈希"
+      },
+      "tools": {
+        "title": "维护工具",
+        "exportConfig": "导出配置（JSON）",
+        "systemCheck": "系统检查",
+        "runCheck": "运行检查",
+        "checking": "检查中...",
+        "lastCheck": "上次检查"
+      },
+      "diagnostics": {
+        "title": "诊断结果",
+        "level": "级别",
+        "message": "消息",
+        "info": "信息",
+        "warn": "警告",
+        "error": "错误"
+      }
+    },
+    "messages": {
+      "saveSuccess": "设置保存成功",
+      "saveError": "保存失败，请重试",
+      "generateCodeSuccess": "登录码生成成功",
+      "revokeCodeSuccess": "登录码已撤销",
+      "testNotificationSuccess": "测试通知发送成功",
+      "testNotificationError": "测试通知发送失败",
+      "reloadConfigSuccess": "配置重载成功",
+      "clearCacheSuccess": "缓存清除成功",
+      "connectionSuccess": "连接测试成功",
+      "connectionError": "连接测试失败"
+    }
   }
 }

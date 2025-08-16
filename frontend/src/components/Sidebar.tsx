@@ -17,13 +17,11 @@ import {
 
 const items = [
   { path: '/', label: '首页', labelEn: 'Home', icon: Home },
-  { path: '/dashboard', label: '仪表板', labelEn: 'Dashboard', icon: BarChart3 },
   { path: '/alerts', label: '预警中心', labelEn: 'Alerts', icon: AlertTriangle },
   { path: '/analytics', label: '数据分析', labelEn: 'Analytics', icon: TrendingUp },
   { path: '/students', label: '学生档案', labelEn: 'Students', icon: Users },
   { path: '/notifications', label: '通知中心', labelEn: 'Notifications', icon: Bell },
   { path: '/classrooms', label: '教室监控', labelEn: 'Classrooms', icon: School },
-  { path: '/privacy', label: '隐私合规', labelEn: 'Privacy', icon: Shield },
   { path: '/settings', label: '系统设置', labelEn: 'Settings', icon: Settings },
 ];
 

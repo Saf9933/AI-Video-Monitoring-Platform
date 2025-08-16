@@ -318,11 +318,13 @@ export const generateMockAuditEntries = (count: number = 200): AuditEntry[] => {
 
 export const mockAuditEntries = generateMockAuditEntries();
 
-// WebSocket Message Simulator
+// WebSocket Message Simulator with RBAC scope filtering
 export class MockWebSocketService {
   private listeners: Map<string, Function[]> = new Map();
   private intervalId: NodeJS.Timeout | null = null;
   private isConnected = false;
+  private allowedRoomIds: '*' | string[] = '*';
+  private currentRole: 'professor' | 'director' = 'professor';
 
   connect(): Promise<void> {
     return new Promise((resolve) => {
@@ -340,6 +342,20 @@ export class MockWebSocketService {
       clearInterval(this.intervalId);
       this.intervalId = null;
     }
+  }
+
+  // Update scope for role-based filtering
+  updateScope(allowedRoomIds: '*' | string[], role: 'professor' | 'director'): void {
+    this.allowedRoomIds = allowedRoomIds;
+    this.currentRole = role;
+  }
+
+  // Check if a classroom is accessible based on current scope
+  private isClassroomAccessible(classroomId: string): boolean {
+    if (this.allowedRoomIds === '*') {
+      return true;
+    }
+    return this.allowedRoomIds.includes(classroomId);
   }
 
   on(event: string, callback: Function): void {
@@ -367,13 +383,20 @@ export class MockWebSocketService {
   }
 
   private startSimulation(): void {
-    // Simulate real-time alerts and updates
+    // Simulate real-time alerts and updates with scope filtering
     this.intervalId = setInterval(() => {
       if (!this.isConnected) return;
 
+      // Get classrooms accessible to current role
+      const accessibleClassrooms = this.allowedRoomIds === '*' 
+        ? mockClassrooms 
+        : mockClassrooms.filter(c => this.isClassroomAccessible(c.id));
+
+      if (accessibleClassrooms.length === 0) return;
+
       // Randomly generate new alerts (low frequency)
       if (Math.random() < 0.1) {
-        const classroom = randomChoice(mockClassrooms);
+        const classroom = randomChoice(accessibleClassrooms);
         const newAlert = {
           id: `alert_live_${Date.now()}`,
           classroomId: classroom.id,
@@ -384,26 +407,35 @@ export class MockWebSocketService {
           timestamp: new Date().toISOString()
         };
         
-        this.emit('alert.new', newAlert);
+        // Only emit if classroom is accessible
+        if (this.isClassroomAccessible(classroom.id)) {
+          this.emit('alert.new', newAlert);
+        }
       }
 
       // Simulate metrics updates (higher frequency)
       if (Math.random() < 0.3) {
-        const classroom = randomChoice(mockClassrooms.slice(0, 10)); // Only active classrooms
-        const metrics = {
-          classroomId: classroom.id,
-          stress: Math.random() * 100,
-          isolation: Math.random() * 100,
-          aggression: Math.random() * 100,
-          timestamp: new Date().toISOString()
-        };
-        
-        this.emit('metrics.update', metrics);
+        const activeAccessibleClassrooms = accessibleClassrooms.slice(0, 10); // Only active classrooms
+        if (activeAccessibleClassrooms.length > 0) {
+          const classroom = randomChoice(activeAccessibleClassrooms);
+          const metrics = {
+            classroomId: classroom.id,
+            stress: Math.random() * 100,
+            isolation: Math.random() * 100,
+            aggression: Math.random() * 100,
+            timestamp: new Date().toISOString()
+          };
+          
+          // Only emit if classroom is accessible
+          if (this.isClassroomAccessible(classroom.id)) {
+            this.emit('metrics.update', metrics);
+          }
+        }
       }
 
       // Simulate device status updates
       if (Math.random() < 0.05) {
-        const classroom = randomChoice(mockClassrooms);
+        const classroom = randomChoice(accessibleClassrooms);
         const deviceUpdate = {
           classroomId: classroom.id,
           heartbeat: randomChoice(['healthy', 'degraded', 'offline']),
@@ -412,7 +444,10 @@ export class MockWebSocketService {
           timestamp: new Date().toISOString()
         };
         
-        this.emit('device.status', deviceUpdate);
+        // Only emit if classroom is accessible
+        if (this.isClassroomAccessible(classroom.id)) {
+          this.emit('device.status', deviceUpdate);
+        }
       }
     }, 3000); // Update every 3 seconds
   }

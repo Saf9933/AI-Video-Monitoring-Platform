@@ -1,7 +1,7 @@
 // src/components/Header.tsx
 import React from "react";
 import { Bell, ChevronDown, Shield, Wifi } from "lucide-react";
-import { CompactRoleToggle } from './rbac/RoleToggleWithPin';
+import { EnhancedRoleMenu } from './rbac/EnhancedRoleMenu';
 
 interface HeaderProps {
   version?: string;
@@ -51,8 +51,8 @@ export default function Header({ version = "v2.1.3" }: HeaderProps) {
             </div>
           </div>
 
-          {/* Role Toggle */}
-          <CompactRoleToggle />
+          {/* Enhanced Role Menu */}
+          <EnhancedRoleMenu />
 
           {/* Notifications */}
           <button

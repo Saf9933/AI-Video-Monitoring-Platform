@@ -21,7 +21,6 @@ interface SidebarProps {
 export default function Sidebar({ isOpen, onClose, currentPage = 'home' }: SidebarProps) {
   const navigation = [
     { name: '主页', nameEn: 'Home', icon: Home, href: '#home', pageId: 'home' },
-    { name: '仪表板', nameEn: 'Dashboard', icon: BarChart3, href: '#dashboard', pageId: 'dashboard' },
     { name: '预警管理', nameEn: 'Alerts', icon: AlertTriangle, href: '#alerts', pageId: 'alerts' },
     { name: '数据分析', nameEn: 'Analytics', icon: TrendingUp, href: '#analytics', pageId: 'analytics' },
     { name: '学生档案', nameEn: 'Students', icon: Users, href: '#students', pageId: 'students' },

@@ -7,7 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tunnel": "lt --port 5173",
+    "tunnel:named": "lt --port 5173 --subdomain ai-safety-monitor",
+    "dev:public": "npm run dev & npm run tunnel",
+    "dev:share": "echo 'Starting dev server and tunnel...' && npm run dev & sleep 3 && npm run tunnel:named"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

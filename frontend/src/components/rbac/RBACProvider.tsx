@@ -1,8 +1,9 @@
 // RBAC (Role-Based Access Control) Context and Provider
-// Supports Professor and Director roles with PIN-based authentication
+// Supports Professor and Director roles with PIN-based authentication and scope management
 
 import React, { createContext, useContext, useState, useCallback, useEffect, ReactNode } from 'react';
-import { Role, Permission, User, RoleContext } from '../data/classrooms/types';
+import { Role, Permission, User, RoleContext } from '../../data/classrooms/types';
+import { getRoleScope, isRoomAccessible, type RoleScope } from '../../data/fixtures/roleScopeMapping';
 
 // PIN Configuration
 const ROLE_PINS = {
@@ -54,9 +55,16 @@ interface RBACContextType {
   currentRole: Role;
   user: User;
   permissions: Permission[];
+  roleScope: RoleScope;
+  allowedRoomIds: '*' | string[];
+  scopeCount: number;
+  loginCode: string;
   switchRole: (newRole: Role, pin: string) => Promise<boolean>;
   hasPermission: (permission: Permission) => boolean;
   canAccessClassroom: (classroomId: string) => boolean;
+  isRoomAccessible: (roomId: string) => boolean;
+  regenerateLoginCode: () => void;
+  revokeLoginCode: () => void;
   isAuthenticated: boolean;
 }
 
@@ -112,9 +120,13 @@ export function RBACProvider({ children, defaultRole = 'professor' }: RBACProvid
 
   const [isAuthenticated, setIsAuthenticated] = useState(true);
 
-  // Get current user and permissions based on role
+  // Get current user, permissions, and scope based on role
   const user = MOCK_USERS[currentRole];
   const permissions = ROLE_PERMISSIONS[currentRole];
+  const roleScope = getRoleScope(currentRole, user.id);
+  const allowedRoomIds = roleScope.allowedRoomIds;
+  const scopeCount = roleScope.scopeCount;
+  const [loginCode, setLoginCode] = useState(roleScope.loginCode);
 
   // Persist role to localStorage
   useEffect(() => {
@@ -126,6 +138,12 @@ export function RBACProvider({ children, defaultRole = 'professor' }: RBACProvid
     localStorage.setItem(STORAGE_KEY, JSON.stringify(roleData));
   }, [currentRole]);
 
+  // Update login code when role changes
+  useEffect(() => {
+    const newScope = getRoleScope(currentRole, user.id);
+    setLoginCode(newScope.loginCode);
+  }, [currentRole, user.id]);
+
   const switchRole = useCallback(async (newRole: Role, pin: string): Promise<boolean> => {
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 300));
@@ -135,7 +153,7 @@ export function RBACProvider({ children, defaultRole = 'professor' }: RBACProvid
       return false;
     }
 
-    // Switch role
+    // Switch role and regenerate login code
     setCurrentRole(newRole);
     return true;
   }, []);
@@ -145,22 +163,36 @@ export function RBACProvider({ children, defaultRole = 'professor' }: RBACProvid
   }, [permissions]);
 
   const canAccessClassroom = useCallback((classroomId: string): boolean => {
-    if (currentRole === 'director') {
-      // Directors can access all classrooms
-      return true;
-    } else {
-      // Professors can only access their assigned classrooms
-      return user.assignedClassrooms?.includes(classroomId) ?? false;
-    }
-  }, [currentRole, user.assignedClassrooms]);
+    return isRoomAccessible(classroomId, allowedRoomIds);
+  }, [allowedRoomIds]);
+
+  const isRoomAccessible = useCallback((roomId: string): boolean => {
+    return isRoomAccessible(roomId, allowedRoomIds);
+  }, [allowedRoomIds]);
+
+  const regenerateLoginCode = useCallback(() => {
+    const newScope = getRoleScope(currentRole, user.id);
+    setLoginCode(newScope.loginCode);
+  }, [currentRole, user.id]);
+
+  const revokeLoginCode = useCallback(() => {
+    setLoginCode('REVOKED-' + Date.now().toString(36).toUpperCase());
+  }, []);
 
   const value: RBACContextType = {
     currentRole,
     user,
     permissions,
+    roleScope,
+    allowedRoomIds,
+    scopeCount,
+    loginCode,
     switchRole,
     hasPermission,
     canAccessClassroom,
+    isRoomAccessible,
+    regenerateLoginCode,
+    revokeLoginCode,
     isAuthenticated
   };
 

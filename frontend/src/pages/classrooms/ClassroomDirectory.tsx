@@ -103,7 +103,7 @@ interface ClassroomRowProps {
 }
 
 function ClassroomRow({ classroom, index, onSelect, isSelected, canAccess }: ClassroomRowProps) {
-  const { t } = useTranslation(['classrooms']);
+  const { t } = useTranslation();
   const status = statusConfig[classroom.status];
   const StatusIcon = status.icon;
 

@@ -335,5 +335,235 @@
       "user": "User",
       "setting": "Setting"
     }
+  },
+  "systemSettings": {
+    "title": "System Settings",
+    "subtitle": "Global Configuration & Management",
+    "unsavedChanges": "Unsaved Changes",
+    "saveChanges": "Save Changes",
+    "discardChanges": "Discard Changes",
+    "restrictedByRole": "Edit restricted by role",
+    "tabs": {
+      "overview": "Overview",
+      "organization": "Organization & Branding",
+      "auth": "Auth & Access",
+      "alerts": "Alerts & Severity",
+      "notifications": "Notifications & Channels",
+      "realtime": "Realtime & Performance",
+      "integrations": "Integrations",
+      "flags": "Feature Flags",
+      "maintenance": "Audit & Maintenance"
+    },
+    "overview": {
+      "title": "Platform Overview",
+      "subtitle": "System Status Overview",
+      "systemInfo": {
+        "title": "System Information",
+        "version": "App Version",
+        "buildHash": "Build Hash",
+        "uptime": "Uptime",
+        "wsStatus": "WebSocket Status",
+        "queueLag": "Queue Lag",
+        "dataMode": "Data Mode"
+      },
+      "quickActions": {
+        "title": "Quick Actions",
+        "reloadConfig": "Reload Config",
+        "clearCache": "Clear Cache"
+      },
+      "status": {
+        "connected": "Connected",
+        "disconnected": "Disconnected",
+        "reconnecting": "Reconnecting",
+        "mock": "Mock Data",
+        "live": "Live Data"
+      }
+    },
+    "organization": {
+      "title": "Organization & Branding",
+      "subtitle": "Institution Information & Appearance",
+      "organizationName": "Organization Name",
+      "logoUpload": "Organization Logo",
+      "logoUploadDesc": "Recommended size: 120x40px",
+      "primaryColor": "Primary Color",
+      "faviconUpload": "Website Favicon",
+      "faviconUploadDesc": "Recommended size: 32x32px",
+      "themePreview": "Theme Preview",
+      "uploadLogo": "Upload Logo",
+      "uploadFavicon": "Upload Favicon",
+      "removeLogo": "Remove Logo",
+      "removeFavicon": "Remove Favicon"
+    },
+    "auth": {
+      "title": "Auth & Access",
+      "subtitle": "Login Methods & Permission Management",
+      "oneTimeCodes": {
+        "title": "One-time Login Codes",
+        "description": "Generate new role login codes. Note: Backend will enforce authentication, this is demo UI.",
+        "generate": "Generate New Code",
+        "generateProfessor": "Generate Professor Code",
+        "generateDirector": "Generate Director Code",
+        "activeCodes": "Active Login Codes",
+        "role": "Role",
+        "code": "Login Code",
+        "created": "Created",
+        "copy": "Copy",
+        "revoke": "Revoke",
+        "revoked": "Revoked",
+        "copied": "Copied to clipboard"
+      },
+      "roleDefaults": {
+        "title": "Role Default Settings",
+        "defaultRole": "Default role for new codes",
+        "sessionLength": "Session Length (minutes)",
+        "idleTimeout": "Idle Timeout (minutes)"
+      }
+    },
+    "alerts": {
+      "title": "Alerts & Severity",
+      "subtitle": "Global Thresholds & Preset Configuration",
+      "thresholds": {
+        "title": "Global Thresholds",
+        "okMax": "OK Maximum",
+        "l1Min": "L1 Minimum",
+        "l2Min": "L2 Minimum",
+        "l3Min": "L3 Minimum",
+        "minConfidence": "Minimum Confidence",
+        "debounceMs": "Debounce Interval (ms)"
+      },
+      "defaultFilters": {
+        "title": "Default Filters",
+        "description": "Default filter settings for new dashboards",
+        "l2Plus": "L2+ Quick Filter"
+      }
+    },
+    "notifications": {
+      "title": "Notifications & Channels",
+      "subtitle": "Notification Recipients & Delivery Channels",
+      "recipients": {
+        "title": "Global Recipients/Groups",
+        "addRecipient": "Add Recipient",
+        "name": "Name",
+        "role": "Role",
+        "actions": "Actions",
+        "counselor": "Counselor",
+        "director": "Director",
+        "edit": "Edit",
+        "remove": "Remove"
+      },
+      "channels": {
+        "title": "Notification Channels",
+        "sms": "SMS",
+        "email": "Email",
+        "wecom": "WeChat Work",
+        "testNotification": "Send Test Notification",
+        "testing": "Sending..."
+      },
+      "policies": {
+        "title": "Retry Policies & Limits",
+        "retryPolicy": "Retry Policy",
+        "rateLimitPerMin": "Rate Limit (per minute)",
+        "none": "No Retry",
+        "simple": "Simple Retry",
+        "exponential": "Exponential Backoff"
+      }
+    },
+    "realtime": {
+      "title": "Realtime & Performance",
+      "subtitle": "WebSocket & Performance Optimization",
+      "websocket": {
+        "title": "WebSocket Settings",
+        "reconnectBackoff": "Reconnect Backoff Strategy",
+        "none": "No Backoff",
+        "linear": "Linear Backoff",
+        "expo": "Exponential Backoff"
+      },
+      "performance": {
+        "title": "Performance Settings",
+        "pollingSec": "Polling Interval (seconds)",
+        "targetP95Ms": "Target P95 Response Time (ms)",
+        "virtualization": "Directory Virtualization (1k+)",
+        "coldStartHints": "Cold Start Hints"
+      }
+    },
+    "integrations": {
+      "title": "Integrations",
+      "subtitle": "External System Connection Configuration",
+      "endpoints": {
+        "title": "Endpoint Configuration",
+        "apiBase": "API Base URL",
+        "wsBase": "WebSocket URL",
+        "lmsBase": "LMS Endpoint",
+        "kafkaBrokers": "Kafka Brokers"
+      },
+      "testing": {
+        "title": "Connection Testing",
+        "testConnection": "Test Connection",
+        "testApi": "Test API",
+        "testWs": "Test WebSocket",
+        "testLms": "Test LMS",
+        "testKafka": "Test Kafka",
+        "testing": "Testing...",
+        "success": "Connection Successful",
+        "failed": "Connection Failed"
+      }
+    },
+    "flags": {
+      "title": "Feature Flags",
+      "subtitle": "Module Enable/Disable Settings",
+      "modules": {
+        "title": "Function Modules",
+        "classrooms": "Classroom Monitoring",
+        "alerts": "Alert Management",
+        "analytics": "Data Analytics",
+        "monitorWall": "Monitor Wall"
+      },
+      "features": {
+        "title": "Feature Options",
+        "shapExplanations": "SHAP Explanations",
+        "shortcuts": "Keyboard Shortcuts"
+      }
+    },
+    "maintenance": {
+      "title": "Audit & Maintenance",
+      "subtitle": "System Audit & Maintenance Tools",
+      "auditLog": {
+        "title": "Audit Log",
+        "recentChanges": "Recent Setting Changes",
+        "actor": "Actor",
+        "action": "Action",
+        "time": "Time",
+        "details": "Details",
+        "hash": "Hash"
+      },
+      "tools": {
+        "title": "Maintenance Tools",
+        "exportConfig": "Export Config (JSON)",
+        "systemCheck": "System Check",
+        "runCheck": "Run Check",
+        "checking": "Checking...",
+        "lastCheck": "Last Check"
+      },
+      "diagnostics": {
+        "title": "Diagnostic Results",
+        "level": "Level",
+        "message": "Message",
+        "info": "Info",
+        "warn": "Warning",
+        "error": "Error"
+      }
+    },
+    "messages": {
+      "saveSuccess": "Settings saved successfully",
+      "saveError": "Save failed, please try again",
+      "generateCodeSuccess": "Login code generated successfully",
+      "revokeCodeSuccess": "Login code revoked",
+      "testNotificationSuccess": "Test notification sent successfully",
+      "testNotificationError": "Test notification failed",
+      "reloadConfigSuccess": "Configuration reloaded successfully",
+      "clearCacheSuccess": "Cache cleared successfully",
+      "connectionSuccess": "Connection test successful",
+      "connectionError": "Connection test failed"
+    }
   }
 }
